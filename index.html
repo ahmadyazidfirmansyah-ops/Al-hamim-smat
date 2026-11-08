@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -22,7 +21,8 @@ section.active{display:block}
 .stat{background:#e8f3ed;padding:15px;border-radius:10px}
 .stat strong{display:block;font-size:23px;color:#145c43;margin-top:8px}
 h3{margin-top:0}
-input,select{width:100%;padding:12px;border:1px solid #ccd5d0;border-radius:8px;margin:6px 0 12px;font-size:15px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #ccd5d0;border-radius:8px;margin:6px 0 12px;font-size:15px;background:white}
+textarea{min-height:65px;resize:vertical}
 button.action{background:#145c43;color:white;border:0;padding:11px 15px;border-radius:8px;font-weight:bold;margin:3px}
 button.danger{background:#b93838;color:white}
 button.light{background:#e8f1ec;color:#145c43}
@@ -30,12 +30,25 @@ button.light{background:#e8f1ec;color:#145c43}
 .item:last-child{border:0}
 .small{font-size:12px;color:#68756e}
 table{width:100%;border-collapse:collapse;font-size:13px}
-td,th{padding:9px 5px;border-bottom:1px solid #eee;text-align:left}
+td,th{padding:9px 5px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
 .tablewrap{overflow-x:auto}
 .empty{color:#888;text-align:center;padding:20px}
+.info{background:#e8f3ed;padding:12px;border-radius:8px;margin:10px 0;font-size:13px}
+.warning{background:#fff3df;color:#815719;padding:12px;border-radius:8px;margin:10px 0;font-size:13px}
+.absen-row{border-bottom:1px solid #eee;padding:12px 0}
+.absen-row:last-child{border:0}
+.absen-row label{font-weight:bold}
+.absen-row select{margin-bottom:5px}
 footer{text-align:center;color:#89928d;font-size:12px;padding:20px}
 @media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
-@media print{header,nav,.noprint,footer{display:none!important}body{background:white}.card{box-shadow:none}}
+@media print{
+ header,nav,.noprint,footer{display:none!important}
+ body{background:white}
+ main{padding:0;max-width:none}
+ .card{box-shadow:none}
+ section{display:none!important}
+ section.active{display:block!important}
+}
 </style>
 </head>
 <body>
@@ -49,10 +62,12 @@ footer{text-align:center;color:#89928d;font-size:12px;padding:20px}
 <button class="active" onclick="showPage('dashboard',this)">Dashboard</button>
 <button onclick="showPage('santri',this)">Data Santri</button>
 <button onclick="showPage('spp',this)">Pembayaran SPP</button>
-<button onclick="showPage('riwayat',this)">Riwayat</button>
+<button onclick="showPage('riwayat',this)">Riwayat SPP</button>
+<button onclick="showPage('absensi',this)">Absensi</button>
 </nav>
 
 <main>
+
 <section id="dashboard" class="active">
 <div class="card">
 <h3>Dashboard</h3>
@@ -61,13 +76,15 @@ footer{text-align:center;color:#89928d;font-size:12px;padding:20px}
 <div class="stat">Jumlah Santri<strong id="totalSantri">0</strong></div>
 <div class="stat">Transaksi<strong id="totalTransaksi">0</strong></div>
 <div class="stat">Pemasukan<strong id="totalUang">Rp0</strong></div>
-<div class="stat">Tunggakan<strong id="totalTunggakan">0</strong></div>
+<div class="stat">Tunggakan<strong id="totalTunggakan">—</strong></div>
 </div>
 </div>
 <div class="card">
 <h3>Informasi</h3>
 <p>SPP bulanan: <b>Rp5.000 per santri</b></p>
-<p class="small">Data versi awal ini disimpan di browser perangkat yang digunakan.</p>
+<p>Jadwal TPQ: Sabtu sampai Kamis.</p>
+<p>Jumat: Libur.</p>
+<p class="small">Data versi ini masih disimpan di browser perangkat yang digunakan.</p>
 </div>
 </section>
 
@@ -123,18 +140,51 @@ footer{text-align:center;color:#89928d;font-size:12px;padding:20px}
 <div id="daftarRiwayat"></div>
 </div>
 </section>
+
+<section id="absensi">
+
+<div class="card">
+<h3>Absensi Harian Santri</h3>
+<p class="small">Pilih tanggal kegiatan, kemudian tentukan status setiap santri.</p>
+
+<label>Tanggal absensi</label>
+<input type="date" id="tanggalAbsensi" onchange="renderFormAbsensi()">
+
+<div id="informasiHari"></div>
+<div id="formAbsensi"></div>
+
+<button class="action noprint" id="tombolSimpanAbsensi" onclick="simpanAbsensi()">Simpan Absensi</button>
+</div>
+
+<div class="card">
+<h3>Rekap Absensi Bulanan</h3>
+<label>Pilih bulan</label>
+<input type="month" id="bulanAbsensi" onchange="renderRekapAbsensi()">
+<div id="daftarRekap"></div>
+<button class="action noprint" onclick="cetakRekapAbsensi()">Cetak Laporan Absensi</button>
+</div>
+
+<div class="card">
+<h3>Riwayat Absensi</h3>
+<div id="riwayatAbsensi"></div>
+</div>
+
+</section>
+
 </main>
 
-<footer>Al Hamim Smart · Versi 0.1</footer>
+<footer>Al Hamim Smart · Versi 0.2</footer>
 
 <script>
 const KEY_S="alHamimStudents";
 const KEY_P="alHamimPayments";
+const KEY_A="alHamimAttendance";
 
 let santri=JSON.parse(localStorage.getItem(KEY_S)||"[]");
 let pembayaran=JSON.parse(localStorage.getItem(KEY_P)||"[]");
+let absensi=JSON.parse(localStorage.getItem(KEY_A)||"[]");
 
-// Bersihkan pembayaran yang tidak lagi memiliki data santri.
+// Bersihkan pembayaran yang tidak memiliki data santri.
 let jumlahAwal=pembayaran.length;
 pembayaran=pembayaran.filter(p=>santri.some(s=>s.nis===p.nis));
 
@@ -142,13 +192,59 @@ if(pembayaran.length!==jumlahAwal){
  localStorage.setItem(KEY_P,JSON.stringify(pembayaran));
 }
 
+// Bersihkan absensi santri yang sudah dihapus.
+let jumlahAbsensiAwal=absensi.length;
+absensi=absensi.filter(a=>santri.some(s=>s.nis===a.nis));
+
+if(absensi.length!==jumlahAbsensiAwal){
+ localStorage.setItem(KEY_A,JSON.stringify(absensi));
+}
+
+function tanggalHariIni(){
+ let d=new Date();
+ let tahun=d.getFullYear();
+ let bulan=String(d.getMonth()+1).padStart(2,"0");
+ let hari=String(d.getDate()).padStart(2,"0");
+ return tahun+"-"+bulan+"-"+hari;
+}
+
+function bulanSekarang(){
+ return tanggalHariIni().slice(0,7);
+}
+
 function simpan(){
  localStorage.setItem(KEY_S,JSON.stringify(santri));
  localStorage.setItem(KEY_P,JSON.stringify(pembayaran));
+ localStorage.setItem(KEY_A,JSON.stringify(absensi));
 }
 
 function rupiah(n){
  return "Rp"+Number(n).toLocaleString("id-ID");
+}
+
+function aman(v){
+ return String(v??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[c]));
+}
+
+function amanJS(v){
+ return String(v).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+}
+
+function formatTanggal(t){
+ if(!t)return "-";
+ let bagian=t.split("-");
+ if(bagian.length!==3)return t;
+ return bagian[2]+"/"+bagian[1]+"/"+bagian[0];
+}
+
+function hariTanggal(t){
+ return new Date(t+"T00:00:00").getDay();
 }
 
 function showPage(id,btn){
@@ -186,15 +282,16 @@ function tambahSantri(){
 }
 
 function hapusSantri(nis){
- if(!confirm("Hapus data santri ini beserta seluruh riwayat pembayarannya?"))return;
+ if(!confirm("Hapus data santri ini beserta seluruh riwayat pembayaran dan absensinya?"))return;
 
  santri=santri.filter(x=>x.nis!==nis);
  pembayaran=pembayaran.filter(x=>x.nis!==nis);
+ absensi=absensi.filter(x=>x.nis!==nis);
 
  simpan();
  render();
 
- alert("Data santri dan seluruh riwayat pembayarannya berhasil dihapus.");
+ alert("Data santri dan seluruh riwayatnya berhasil dihapus.");
 }
 
 function renderSantri(){
@@ -317,18 +414,221 @@ function cetak(nomor){
  w.document.close();
 }
 
-function aman(v){
- return String(v??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
- }[c]));
+// ===============================
+// FITUR ABSENSI SANTRI
+// ===============================
+
+function renderFormAbsensi(){
+ let tanggal=document.getElementById("tanggalAbsensi").value;
+ let info=document.getElementById("informasiHari");
+ let form=document.getElementById("formAbsensi");
+ let tombol=document.getElementById("tombolSimpanAbsensi");
+
+ if(!tanggal){
+  info.innerHTML='<div class="warning">Pilih tanggal absensi terlebih dahulu.</div>';
+  form.innerHTML="";
+  tombol.disabled=true;
+  return;
+ }
+
+ if(hariTanggal(tanggal)===5){
+  info.innerHTML='<div class="warning"><b>Hari Jumat adalah hari libur TPQ.</b><br>Absensi tidak tersedia untuk tanggal ini.</div>';
+  form.innerHTML="";
+  tombol.disabled=true;
+  return;
+ }
+
+ tombol.disabled=false;
+ info.innerHTML='<div class="info">Tanggal kegiatan: <b>'+formatTanggal(tanggal)+'</b><br>Status yang belum dipilih tidak akan disimpan sebagai Alfa.</div>';
+
+ if(!santri.length){
+  form.innerHTML='<div class="empty">Belum ada data santri. Tambahkan santri terlebih dahulu.</div>';
+  tombol.disabled=true;
+  return;
+ }
+
+ form.innerHTML=santri.map(s=>{
+  let data=absensi.find(a=>a.nis===s.nis&&a.tanggal===tanggal);
+  let status=data?data.status:"";
+  let catatan=data?data.catatan||"":"";
+
+  return `
+  <div class="absen-row">
+   <label>${aman(s.nama)}</label><br>
+   <span class="small">NIS: ${aman(s.nis)}</span>
+   <select data-absen-nis="${aman(s.nis)}" class="pilihan-status">
+    <option value="">-- Pilih status --</option>
+    <option value="Hadir" ${status==="Hadir"?"selected":""}>Hadir</option>
+    <option value="Izin" ${status==="Izin"?"selected":""}>Izin</option>
+    <option value="Sakit" ${status==="Sakit"?"selected":""}>Sakit</option>
+    <option value="Alfa" ${status==="Alfa"?"selected":""}>Alfa</option>
+   </select>
+   <input data-catatan-nis="${aman(s.nis)}" placeholder="Catatan (opsional)" value="${aman(catatan)}">
+  </div>`;
+ }).join("");
 }
 
-function amanJS(v){
- return String(v).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+function simpanAbsensi(){
+ let tanggal=document.getElementById("tanggalAbsensi").value;
+
+ if(!tanggal){
+  alert("Pilih tanggal absensi.");
+  return;
+ }
+
+ if(hariTanggal(tanggal)===5){
+  alert("Hari Jumat adalah hari libur. Absensi tidak dapat disimpan.");
+  return;
+ }
+
+ let pilihan=document.querySelectorAll(".pilihan-status");
+ let jumlah=0;
+
+ pilihan.forEach(el=>{
+  let nis=el.dataset.absenNis;
+  let status=el.value;
+
+  // Status kosong tidak otomatis menjadi Alfa.
+  if(!status)return;
+
+  let santriData=santri.find(s=>s.nis===nis);
+  if(!santriData)return;
+
+  let catatanEl=document.querySelector(`[data-catatan-nis="${CSS.escape(nis)}"]`);
+  let catatan=catatanEl?catatanEl.value.trim():"";
+
+  let lama=absensi.find(a=>a.nis===nis&&a.tanggal===tanggal);
+
+  if(lama){
+   lama.nama=santriData.nama;
+   lama.status=status;
+   lama.catatan=catatan;
+  }else{
+   absensi.push({
+    nis,
+    nama:santriData.nama,
+    tanggal,
+    status,
+    catatan
+   });
+  }
+
+  jumlah++;
+ });
+
+ if(jumlah===0){
+  alert("Belum ada status kehadiran yang dipilih.");
+  return;
+ }
+
+ simpan();
+ renderRekapAbsensi();
+ renderRiwayatAbsensi();
+
+ alert("Absensi berhasil disimpan untuk "+jumlah+" santri.");
+}
+
+function renderRekapAbsensi(){
+ let bulan=document.getElementById("bulanAbsensi").value;
+ let el=document.getElementById("daftarRekap");
+ let riwayatBulan=absensi.filter(a=>a.tanggal.startsWith(bulan));
+
+ if(!santri.length){
+  el.innerHTML='<div class="empty">Belum ada data santri.</div>';
+  return;
+ }
+
+ let hitung=(nis,status)=>riwayatBulan.filter(a=>a.nis===nis&&a.status===status).length;
+
+ el.innerHTML=`<div class="tablewrap"><table>
+ <tr>
+ <th>Santri</th>
+ <th>Hadir</th>
+ <th>Izin</th>
+ <th>Sakit</th>
+ <th>Alfa</th>
+ </tr>
+ ${santri.map(s=>`
+ <tr>
+ <td>${aman(s.nama)}<br><span class="small">${aman(s.nis)}</span></td>
+ <td>${hitung(s.nis,"Hadir")}</td>
+ <td>${hitung(s.nis,"Izin")}</td>
+ <td>${hitung(s.nis,"Sakit")}</td>
+ <td>${hitung(s.nis,"Alfa")}</td>
+ </tr>`).join("")}
+ </table></div>
+ <p class="small">Jumlah catatan absensi bulan ini: ${riwayatBulan.length}</p>`;
+
+}
+
+function renderRiwayatAbsensi(){
+ let bulan=document.getElementById("bulanAbsensi").value;
+ let el=document.getElementById("riwayatAbsensi");
+
+ let data=absensi.filter(a=>a.tanggal.startsWith(bulan))
+ .sort((a,b)=>b.tanggal.localeCompare(a.tanggal));
+
+ el.innerHTML=data.length?`<div class="tablewrap"><table>
+ <tr>
+ <th>Tanggal</th>
+ <th>Santri</th>
+ <th>Status</th>
+ <th>Catatan</th>
+ </tr>
+ ${data.map(a=>`
+ <tr>
+ <td>${formatTanggal(a.tanggal)}</td>
+ <td>${aman(a.nama)}<br><span class="small">${aman(a.nis)}</span></td>
+ <td>${aman(a.status)}</td>
+ <td>${aman(a.catatan||"-")}</td>
+ </tr>`).join("")}
+ </table></div>`:'<div class="empty">Belum ada riwayat absensi pada bulan ini.</div>';
+}
+
+function cetakRekapAbsensi(){
+ let bulan=document.getElementById("bulanAbsensi").value;
+ let data=absensi.filter(a=>a.tanggal.startsWith(bulan));
+ let namaBulan=bulan;
+
+ let hitung=(nis,status)=>data.filter(a=>a.nis===nis&&a.status===status).length;
+
+ let isi=santri.map(s=>`
+ <tr>
+ <td>${aman(s.nama)}</td>
+ <td>${aman(s.nis)}</td>
+ <td>${hitung(s.nis,"Hadir")}</td>
+ <td>${hitung(s.nis,"Izin")}</td>
+ <td>${hitung(s.nis,"Sakit")}</td>
+ <td>${hitung(s.nis,"Alfa")}</td>
+ </tr>`).join("");
+
+ let w=window.open("","_blank");
+ if(!w){
+  alert("Izinkan pop-up untuk mencetak laporan.");
+  return;
+ }
+
+ w.document.write(`
+ <html><head><title>Rekap Absensi TPQ Al Hamim</title>
+ <style>
+ body{font-family:Arial;padding:25px}
+ h2,h3{text-align:center}
+ table{width:100%;border-collapse:collapse;margin-top:20px}
+ th,td{border:1px solid #777;padding:8px;text-align:left;font-size:13px}
+ </style></head><body>
+ <h2>TPQ AL HAMIM</h2>
+ <h3>REKAP ABSENSI SANTRI</h3>
+ <p>Bulan: ${aman(namaBulan)}</p>
+ <table>
+ <tr><th>Nama Santri</th><th>NIS</th><th>Hadir</th><th>Izin</th><th>Sakit</th><th>Alfa</th></tr>
+ ${isi}
+ </table>
+ <br><br>
+ <p>Petugas,</p><br><br><p>____________________</p>
+ <script>window.onload=()=>window.print()<\/script>
+ </body></html>`);
+
+ w.document.close();
 }
 
 function render(){
@@ -340,10 +640,20 @@ function render(){
  renderSantri();
  renderPilihan();
  renderRiwayat();
+
+ if(document.getElementById("tanggalAbsensi").value){
+  renderFormAbsensi();
+ }
+
+ renderRekapAbsensi();
+ renderRiwayatAbsensi();
 }
+
+document.getElementById("tanggalAbsensi").value=tanggalHariIni();
+document.getElementById("bulanAbsensi").value=bulanSekarang();
 
 render();
 </script>
 </body>
  </html>
- 
+                            
