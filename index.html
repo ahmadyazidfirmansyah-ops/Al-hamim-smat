@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -38,6 +39,7 @@ footer{text-align:center;color:#89928d;font-size:12px;padding:20px}
 </style>
 </head>
 <body>
+
 <header>
 <h2>Al Hamim Smart</h2>
 <p>Sistem Administrasi TPQ Al Hamim</p>
@@ -94,12 +96,18 @@ footer{text-align:center;color:#89928d;font-size:12px;padding:20px}
 <select id="pilihSantri"></select>
 <label>Bulan pembayaran</label>
 <select id="bulan">
-<option value="Januari">Januari</option><option value="Februari">Februari</option>
-<option value="Maret">Maret</option><option value="April">April</option>
-<option value="Mei">Mei</option><option value="Juni">Juni</option>
-<option value="Juli">Juli</option><option value="Agustus">Agustus</option>
-<option value="September">September</option><option value="Oktober">Oktober</option>
-<option value="November">November</option><option value="Desember">Desember</option>
+<option value="Januari">Januari</option>
+<option value="Februari">Februari</option>
+<option value="Maret">Maret</option>
+<option value="April">April</option>
+<option value="Mei">Mei</option>
+<option value="Juni">Juni</option>
+<option value="Juli">Juli</option>
+<option value="Agustus">Agustus</option>
+<option value="September">September</option>
+<option value="Oktober">Oktober</option>
+<option value="November">November</option>
+<option value="Desember">Desember</option>
 </select>
 <label>Tahun</label>
 <input id="tahun" type="number" value="2026">
@@ -122,14 +130,27 @@ footer{text-align:center;color:#89928d;font-size:12px;padding:20px}
 <script>
 const KEY_S="alHamimStudents";
 const KEY_P="alHamimPayments";
+
 let santri=JSON.parse(localStorage.getItem(KEY_S)||"[]");
 let pembayaran=JSON.parse(localStorage.getItem(KEY_P)||"[]");
+
+// Bersihkan pembayaran yang tidak lagi memiliki data santri.
+let jumlahAwal=pembayaran.length;
+pembayaran=pembayaran.filter(p=>santri.some(s=>s.nis===p.nis));
+
+if(pembayaran.length!==jumlahAwal){
+ localStorage.setItem(KEY_P,JSON.stringify(pembayaran));
+}
 
 function simpan(){
  localStorage.setItem(KEY_S,JSON.stringify(santri));
  localStorage.setItem(KEY_P,JSON.stringify(pembayaran));
 }
-function rupiah(n){return "Rp"+Number(n).toLocaleString("id-ID")}
+
+function rupiah(n){
+ return "Rp"+Number(n).toLocaleString("id-ID");
+}
+
 function showPage(id,btn){
  document.querySelectorAll("main section").forEach(x=>x.classList.remove("active"));
  document.getElementById(id).classList.add("active");
@@ -137,28 +158,49 @@ function showPage(id,btn){
  btn.classList.add("active");
  render();
 }
+
 function tambahSantri(){
  let nama=document.getElementById("nama").value.trim();
  let nis=document.getElementById("nis").value.trim();
  let kelas=document.getElementById("kelas").value.trim();
- if(!nama||!nis){alert("Nama dan NIS wajib diisi.");return}
- if(santri.some(x=>x.nis===nis)){alert("NIS sudah terdaftar.");return}
+
+ if(!nama||!nis){
+  alert("Nama dan NIS wajib diisi.");
+  return;
+ }
+
+ if(santri.some(x=>x.nis===nis)){
+  alert("NIS sudah terdaftar.");
+  return;
+ }
+
  santri.push({nama,nis,kelas});
  simpan();
+
  document.getElementById("nama").value="";
  document.getElementById("nis").value="";
  document.getElementById("kelas").value="";
+
  render();
  alert("Data santri berhasil disimpan.");
 }
+
 function hapusSantri(nis){
- if(!confirm("Hapus data santri ini?"))return;
+ if(!confirm("Hapus data santri ini beserta seluruh riwayat pembayarannya?"))return;
+
  santri=santri.filter(x=>x.nis!==nis);
- simpan();render();
+ pembayaran=pembayaran.filter(x=>x.nis!==nis);
+
+ simpan();
+ render();
+
+ alert("Data santri dan seluruh riwayat pembayarannya berhasil dihapus.");
 }
+
 function renderSantri(){
  let q=(document.getElementById("cariSantri")?.value||"").toLowerCase();
  let hasil=santri.filter(x=>(x.nama+" "+x.nis).toLowerCase().includes(q));
+
  document.getElementById("daftarSantri").innerHTML=hasil.length?hasil.map(x=>`
  <div class="item">
  <b>${aman(x.nama)}</b><br>
@@ -166,63 +208,142 @@ function renderSantri(){
  <button class="action danger noprint" onclick="hapusSantri('${amanJS(x.nis)}')">Hapus</button>
  </div>`).join(""):'<div class="empty">Belum ada data santri.</div>';
 }
+
 function renderPilihan(){
  let el=document.getElementById("pilihSantri");
- el.innerHTML=santri.length?santri.map(x=>`<option value="${aman(x.nis)}">${aman(x.nama)} (${aman(x.nis)})</option>`).join(""):'<option value="">Belum ada santri</option>';
+ el.innerHTML=santri.length?santri.map(x=>`
+ <option value="${aman(x.nis)}">${aman(x.nama)} (${aman(x.nis)})</option>
+ `).join(""):'<option value="">Belum ada santri</option>';
 }
+
 function bayar(){
  let nis=document.getElementById("pilihSantri").value;
  let bulan=document.getElementById("bulan").value;
  let tahun=document.getElementById("tahun").value;
- if(!nis){alert("Tambahkan data santri terlebih dahulu.");return}
- if(!tahun||Number(tahun)<2000){alert("Tahun tidak valid.");return}
+
+ if(!nis){
+  alert("Tambahkan data santri terlebih dahulu.");
+  return;
+ }
+
+ if(!tahun||Number(tahun)<2000){
+  alert("Tahun tidak valid.");
+  return;
+ }
+
  if(pembayaran.some(x=>x.nis===nis&&x.bulan===bulan&&x.tahun===tahun)){
- alert("Pembayaran bulan tersebut sudah tercatat.");return}
+  alert("Pembayaran bulan tersebut sudah tercatat.");
+  return;
+ }
+
  let s=santri.find(x=>x.nis===nis);
+ if(!s)return;
+
  let nomor="KWT-"+tahun+"-"+String(pembayaran.length+1).padStart(4,"0");
- pembayaran.push({nis,nama:s.nama,bulan,tahun,nominal:5000,nomor,tanggal:new Date().toLocaleDateString("id-ID")});
- simpan();render();
+
+ pembayaran.push({
+  nis,
+  nama:s.nama,
+  bulan,
+  tahun,
+  nominal:5000,
+  nomor,
+  tanggal:new Date().toLocaleDateString("id-ID")
+ });
+
+ simpan();
+ render();
  alert("Pembayaran berhasil disimpan.");
 }
+
 function renderRiwayat(){
  let el=document.getElementById("daftarRiwayat");
+
  el.innerHTML=pembayaran.length?`<div class="tablewrap"><table>
- <tr><th>Santri</th><th>Bulan</th><th>Jumlah</th><th>Kuitansi</th></tr>
+ <tr>
+ <th>Santri</th>
+ <th>Bulan</th>
+ <th>Jumlah</th>
+ <th>Kuitansi</th>
+ <th class="noprint">Aksi</th>
+ </tr>
  ${[...pembayaran].reverse().map(x=>`<tr>
  <td>${aman(x.nama)}<br><span class="small">${aman(x.nis)}</span></td>
  <td>${aman(x.bulan)} ${aman(x.tahun)}</td>
  <td>${rupiah(x.nominal)}</td>
  <td><button class="action light noprint" onclick="cetak('${amanJS(x.nomor)}')">Cetak</button></td>
- </tr>`).join("")}</table></div>`:'<div class="empty">Belum ada pembayaran.</div>';
+ <td class="noprint">
+ <button class="action danger" onclick="hapusPembayaran('${amanJS(x.nomor)}')">Hapus</button>
+ </td>
+ </tr>`).join("")}
+ </table></div>`:'<div class="empty">Belum ada pembayaran.</div>';
 }
+
+function hapusPembayaran(nomor){
+ let x=pembayaran.find(p=>p.nomor===nomor);
+ if(!x)return;
+
+ if(!confirm("Hapus transaksi pembayaran "+x.nomor+" milik "+x.nama+"?"))return;
+
+ pembayaran=pembayaran.filter(p=>p.nomor!==nomor);
+ simpan();
+ render();
+
+ alert("Transaksi pembayaran berhasil dihapus.");
+}
+
 function cetak(nomor){
  let x=pembayaran.find(p=>p.nomor===nomor);
  if(!x)return;
+
  let w=window.open("","_blank");
- if(!w){alert("Izinkan pop-up untuk mencetak kuitansi.");return}
+ if(!w){
+  alert("Izinkan pop-up untuk mencetak kuitansi.");
+  return;
+ }
+
  w.document.write(`<html><head><title>Kuitansi ${aman(x.nomor)}</title></head><body style="font-family:Arial;padding:25px">
- <h2>TPQ AL HAMIM</h2><h3>KUITANSI PEMBAYARAN SPP</h3>
+ <h2>TPQ AL HAMIM</h2>
+ <h3>KUITANSI PEMBAYARAN SPP</h3>
  <p>Nomor: ${aman(x.nomor)}</p><hr>
  <p>Telah diterima dari: <b>${aman(x.nama)}</b></p>
- <p>NIS: ${aman(x.nis)}</p><p>Pembayaran: SPP ${aman(x.bulan)} ${aman(x.tahun)}</p>
- <h2>${rupiah(x.nominal)}</h2><p>Tanggal: ${aman(x.tanggal)}</p>
+ <p>NIS: ${aman(x.nis)}</p>
+ <p>Pembayaran: SPP ${aman(x.bulan)} ${aman(x.tahun)}</p>
+ <h2>${rupiah(x.nominal)}</h2>
+ <p>Tanggal: ${aman(x.tanggal)}</p>
  <br><br><p>Petugas,</p><br><br><p>________________</p>
  <script>window.onload=()=>window.print()<\/script></body></html>`);
+
  w.document.close();
 }
+
 function aman(v){
- return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ return String(v??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[c]));
 }
-function amanJS(v){return String(v).replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
+
+function amanJS(v){
+ return String(v).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+}
+
 function render(){
  document.getElementById("totalSantri").textContent=santri.length;
  document.getElementById("totalTransaksi").textContent=pembayaran.length;
  document.getElementById("totalUang").textContent=rupiah(pembayaran.reduce((a,x)=>a+x.nominal,0));
  document.getElementById("totalTunggakan").textContent="—";
- renderSantri();renderPilihan();renderRiwayat();
+
+ renderSantri();
+ renderPilihan();
+ renderRiwayat();
 }
+
 render();
 </script>
 </body>
-  </html>
-  
+ </html>
+ 
