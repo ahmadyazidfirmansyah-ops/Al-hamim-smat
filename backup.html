@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backup Al Hamim Smart</title>
+<style>
+body{
+ font-family:Arial,sans-serif;
+ background:#f3f5f8;
+ padding:20px;
+ color:#263238;
+}
+.card{
+ background:white;
+ padding:22px;
+ border-radius:14px;
+ max-width:500px;
+ margin:30px auto;
+ box-shadow:0 3px 12px #0001;
+}
+h2{color:#145c43}
+button{
+ width:100%;
+ padding:14px;
+ border:0;
+ border-radius:9px;
+ background:#145c43;
+ color:white;
+ font-size:16px;
+ margin-top:15px;
+}
+p{line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="card">
+<h2>Al Hamim Smart</h2>
+<h3>Pencadangan Data v0.4</h3>
+
+<p>
+Halaman ini digunakan untuk menyimpan salinan data aplikasi
+sebelum kita memasang versi 0.5.
+</p>
+
+<p id="status">Memeriksa data...</p>
+
+<button onclick="backupData()">
+Unduh Cadangan Data
+</button>
+</div>
+
+<script>
+const daftarKunci=[
+ "alHamimStudents",
+ "alHamimPayments",
+ "alHamimAttendance",
+ "alHamimTajwid",
+ "alHamimMateri",
+ "alHamimWali"
+];
+
+function backupData(){
+ let cadangan={};
+ let ditemukan=0;
+
+ daftarKunci.forEach(k=>{
+  const isi=localStorage.getItem(k);
+  cadangan[k]=isi;
+
+  if(isi!==null) ditemukan++;
+ });
+
+ if(ditemukan===0){
+  alert("Data tidak ditemukan di penyimpanan browser ini.");
+  return;
+ }
+
+ const hasil={
+  aplikasi:"Al Hamim Smart",
+  versi:"v0.4",
+  tanggalCadangan:new Date().toISOString(),
+  data:cadangan
+ };
+
+ const file=new Blob(
+  [JSON.stringify(hasil,null,2)],
+  {type:"application/json"}
+ );
+
+ const url=URL.createObjectURL(file);
+ const link=document.createElement("a");
+
+ link.href=url;
+ link.download="backup-al-hamim-v04.json";
+ link.click();
+
+ URL.revokeObjectURL(url);
+
+ alert("Cadangan berhasil dibuat. Simpan file dengan aman.");
+}
+
+document.getElementById("status").textContent=
+ "Halaman pencadangan siap digunakan.";
+</script>
+
+</body>
+  </html>
