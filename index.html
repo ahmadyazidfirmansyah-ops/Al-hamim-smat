@@ -811,59 +811,173 @@ function cetakRekapAbsensi(){
     ?bulan.value
     :bulanSekarang();
 
+// ===============================
+// ABSENSI SANTRI
+// ===============================
+
+function renderFormAbsensi(){
+ const tanggal=document.getElementById("tanggalAbsensi");
+ const wadah=document.getElementById("formAbsensi");
+ const info=document.getElementById("informasiHari");
+ const tombol=document.getElementById("tombolSimpanAbsensi");
+
+ if(!tanggal || !wadah) return;
+ if(!tanggal.value) tanggal.value=tanggalHariIni();
+
+ const tgl=tanggal.value;
+ const hari=new Date(tgl+"T00:00:00").getDay();
+
+ if(hari===5){
+  info.innerHTML="<p class='small'>Hari Jumat libur. Absensi tidak tersedia.</p>";
+  wadah.innerHTML="";
+  tombol.disabled=true;
+  return;
+ }
+
+ tombol.disabled=false;
+ info.innerHTML="<p class='small'>Silakan tentukan status setiap santri.</p>";
+
+ if(!santri.length){
+  wadah.innerHTML="<p class='small'>Belum ada data santri.</p>";
+  return;
+ }
+
+ wadah.innerHTML=santri.map(s=>`
+  <div class="card">
+   <b>${aman(s.nama)}</b>
+   <p class="small">${aman(s.nis || "")}</p>
+   <label>Status kehadiran</label>
+   <select class="status-absensi" data-nis="${aman(s.nis)}">
+    <option value="">Pilih status</option>
+    <option value="Hadir">Hadir</option>
+    <option value="Izin">Izin</option>
+    <option value="Sakit">Sakit</option>
+    <option value="Alfa">Alfa</option>
+   </select>
+   <label>Catatan</label>
+   <input class="catatan-absensi" data-nis="${aman(s.nis)}" placeholder="Catatan (opsional)">
+  </div>
+ `).join("");
+}
+
+function simpanAbsensi(){
+ const tanggal=document.getElementById("tanggalAbsensi").value;
+ const hari=new Date(tanggal+"T00:00:00").getDay();
+
+ if(!tanggal){
+  alert("Pilih tanggal absensi terlebih dahulu.");
+  return;
+ }
+
+ if(hari===5){
+  alert("Hari Jumat libur.");
+  return;
+ }
+
+ const pilihan=document.querySelectorAll(".status-absensi");
+ const catatan=document.querySelectorAll(".catatan-absensi");
+
+ if(!pilihan.length){
+  alert("Belum ada santri untuk diabsen.");
+  return;
+ }
+
+ let dataBaru=[];
+
+ pilihan.forEach(p=>{
+  const nis=p.dataset.nis;
+  if(!p.value) return;
+
+  let isiCatatan="";
+  catatan.forEach(c=>{
+   if(c.dataset.nis===nis) isiCatatan=c.value.trim();
+  });
+
+  dataBaru.push({
+   nis:nis,
+   tanggal:tanggal,
+   status:p.value,
+   catatan:isiCatatan
+  });
+ });
+
+ if(!dataBaru.length){
+  alert("Pilih minimal satu status kehadiran.");
+  return;
+ }
+
+ const duplikat=dataBaru.some(d=>
+  absensi.some(a=>a.nis===d.nis && a.tanggal===d.tanggal)
+ );
+
+ if(duplikat){
+  alert("Absensi tanggal tersebut sudah pernah disimpan. Periksa riwayat terlebih dahulu.");
+  return;
+ }
+
+ absensi.push(...dataBaru);
+ simpan();
+ render();
+ alert("Absensi berhasil disimpan.");
+}
+
+function renderRekapAbsensi(){
+ const bulan=document.getElementById("bulanAbsensi").value;
+ const wadah=document.getElementById("daftarRekap");
+ if(!wadah) return;
+
+ if(!bulan){
+  wadah.innerHTML="";
+  return;
+ }
+
+ wadah.innerHTML=santri.map(s=>{
   const data=absensi.filter(a=>
-    a.tanggal.startsWith(periode)
+   a.nis===s.nis && a.tanggal.startsWith(bulan)
   );
 
-  const isi=data.map(a=>{
-    const siswa=santri.find(s=>s.nis===a.nis);
-    return `
-      <tr>
-        <td>${aman(siswa?siswa.nama:"-")}</td>
-        <td>${aman(a.tanggal)}</td>
-        <td>${aman(a.status)}</td>
-        <td>${aman(a.catatan||"-")}</td>
-      </tr>
-    `;
-  }).join("");
+  const hitung=status=>data.filter(a=>a.status===status).length;
 
-  const jendela=window.open("","_blank");
+  return `
+   <div class="card">
+    <b>${aman(s.nama)}</b>
+    <p>Hadir: ${hitung("Hadir")} | Izin: ${hitung("Izin")} | Sakit: ${hitung("Sakit")} | Alfa: ${hitung("Alfa")}</p>
+   </div>
+  `;
+ }).join("");
+}
 
-  if(!jendela){
-    alert("Izinkan pop-up untuk mencetak rekap.");
-    return;
-  }
+function renderRiwayatAbsensi(){
+ const bulan=document.getElementById("bulanAbsensi").value;
+ const wadah=document.getElementById("riwayatAbsensi");
+ if(!wadah) return;
 
-  jendela.document.write(`
-    <html>
-    <head>
-      <title>Rekap Absensi TPQ Al Hamim</title>
-      <style>
-        body{font-family:Arial;padding:20px}
-        table{width:100%;border-collapse:collapse}
-        th,td{border:1px solid #333;padding:8px;text-align:left}
-        h2{text-align:center}
-      </style>
-    </head>
-    <body>
-      <h2>TPQ AL HAMIM</h2>
-      <h3>Rekap Absensi ${aman(periode)}</h3>
-      <table>
-        <tr>
-          <th>Nama Santri</th>
-          <th>Tanggal</th>
-          <th>Status</th>
-          <th>Catatan</th>
-        </tr>
-        ${isi}
-      </table>
-      <script>window.onload=function(){window.print()}<\/script>
-    </body>
-    </html>
-  `);
+ const data=absensi.filter(a=>
+  !bulan || a.tanggal.startsWith(bulan)
+ );
 
-  jendela.document.close();
-  }
+ if(!data.length){
+  wadah.innerHTML="<p class='small'>Belum ada riwayat absensi.</p>";
+  return;
+ }
+
+ wadah.innerHTML=data.slice().reverse().map(a=>{
+  const s=santri.find(x=>x.nis===a.nis);
+  return `
+   <div class="card">
+    <b>${aman(s ? s.nama : "Santri tidak ditemukan")}</b>
+    <p>${formatTanggal(a.tanggal)}</p>
+    <p>Status: ${aman(a.status)}</p>
+    <p>Catatan: ${aman(a.catatan || "-")}</p>
+   </div>
+  `;
+ }).join("");
+}
+
+function cetakRekapAbsensi(){
+ renderRekapAbsensi();
+ window.print();
+}
   // ===============================
 // PENGATURAN MATERI TAJWID
 // ===============================
