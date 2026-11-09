@@ -3,45 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Al Hamim Smart</title>
+<title>Al Hamim Smart v0.4</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f5f8;color:#263238}
-header{background:#145c43;color:white;padding:20px}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f3f6f4;
+ color:#26352d
+}
+header{
+ background:#145c43;
+ color:white;
+ padding:20px
+}
 header h2{margin:0 0 6px}
 header p{margin:0;font-size:13px}
-nav{display:flex;overflow:auto;background:white;padding:8px;gap:7px}
-nav button{border:0;background:#e8f1ec;padding:11px;border-radius:8px;white-space:nowrap;color:#145c43;font-weight:bold}
-nav button.active{background:#145c43;color:white}
-main{padding:15px;max-width:850px;margin:auto}
+nav{
+ display:flex;
+ overflow-x:auto;
+ background:white;
+ padding:8px;
+ gap:7px
+}
+nav button{
+ border:0;
+ background:#e8f1ec;
+ padding:11px;
+ border-radius:8px;
+ white-space:nowrap;
+ color:#145c43;
+ font-weight:bold
+}
+nav button.active{
+ background:#145c43;
+ color:white
+}
+main{
+ padding:15px;
+ max-width:900px;
+ margin:auto
+}
 section{display:none}
 section.active{display:block}
-.card{background:white;padding:16px;border-radius:12px;margin-bottom:13px;box-shadow:0 2px 8px #0000000b}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.stat{background:#e8f3ed;padding:15px;border-radius:10px}
-.stat strong{display:block;font-size:23px;color:#145c43;margin-top:8px}
-h3{margin-top:0}
-input,select,textarea{width:100%;padding:12px;border:1px solid #ccd5d0;border-radius:8px;margin:6px 0 12px;font-size:15px;background:white}
-textarea{min-height:65px;resize:vertical}
-button.action{background:#145c43;color:white;border:0;padding:11px 15px;border-radius:8px;font-weight:bold;margin:3px}
-button.danger{background:#b93838;color:white}
-button.light{background:#e8f1ec;color:#145c43}
+.card{
+ background:white;
+ padding:16px;
+ border-radius:13px;
+ margin-bottom:13px;
+ box-shadow:0 2px 9px #0000000b
+}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px
+}
+.stat{
+ background:#e8f3ed;
+ padding:15px;
+ border-radius:10px
+}
+.stat strong{
+ display:block;
+ font-size:23px;
+ color:#145c43;
+ margin-top:8px
+}
+input,select,textarea{
+ width:100%;
+ padding:12px;
+ border:1px solid #ccd5d0;
+ border-radius:8px;
+ margin:6px 0 12px;
+ font-size:15px;
+ background:white
+}
+textarea{min-height:70px}
+label{font-size:14px;font-weight:bold}
+button.action{
+ background:#145c43;
+ color:white;
+ border:0;
+ padding:11px 15px;
+ border-radius:8px;
+ font-weight:bold;
+ margin:3px
+}
+button.light{
+ background:#e8f1ec;
+ color:#145c43
+}
+button.danger{
+ background:#b93838;
+ color:white
+}
 button:disabled{opacity:.5}
-.item{border-bottom:1px solid #eee;padding:12px 0}
+.item{
+ border-bottom:1px solid #eee;
+ padding:12px 0
+}
 .item:last-child{border:0}
 .small{font-size:12px;color:#68756e}
-table{width:100%;border-collapse:collapse;font-size:13px}
-td,th{padding:9px 5px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+table{
+ width:100%;
+ border-collapse:collapse;
+ font-size:13px
+}
+td,th{
+ padding:9px 5px;
+ border-bottom:1px solid #eee;
+ text-align:left;
+ vertical-align:top
+}
 .tablewrap{overflow-x:auto}
-.empty{color:#888;text-align:center;padding:20px}
-.info{background:#e8f3ed;padding:12px;border-radius:8px;margin:10px 0;font-size:13px}
-.warning{background:#fff3df;color:#815719;padding:12px;border-radius:8px;margin:10px 0;font-size:13px}
-.absen-row{border-bottom:1px solid #eee;padding:12px 0}
-.absen-row:last-child{border:0}
-.absen-row label{font-weight:bold}
-.absen-row select{margin-bottom:5px}
-footer{text-align:center;color:#89928d;font-size:12px;padding:20px}
-@media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
+.empty{
+ color:#888;
+ text-align:center;
+ padding:20px
+}
+.info{
+ background:#e8f3ed;
+ padding:12px;
+ border-radius:8px;
+ margin:10px 0;
+ font-size:13px
+}
+.warning{
+ background:#fff3df;
+ color:#815719;
+ padding:12px;
+ border-radius:8px;
+ margin:10px 0;
+ font-size:13px
+}
+.absen-row{
+ border-bottom:1px solid #eee;
+ padding:12px 0
+}
+.portal-head{
+ background:linear-gradient(135deg,#145c43,#25845e);
+ color:white;
+ padding:20px;
+ border-radius:13px;
+ margin-bottom:13px
+}
+.portal-head h2{margin:0 0 7px}
+.portal-stat{
+ background:#e8f3ed;
+ border-radius:12px;
+ padding:14px
+}
+.portal-stat strong{
+ display:block;
+ color:#145c43;
+ font-size:22px;
+ margin-top:7px
+}
+.announcement{
+ border-left:4px solid #25845e;
+ padding:10px 12px;
+ background:#f3f8f5;
+ border-radius:6px;
+ margin:10px 0
+}
+footer{
+ text-align:center;
+ color:#89928d;
+ font-size:12px;
+ padding:20px
+}
+@media(min-width:600px){
+ .stats{grid-template-columns:repeat(4,1fr)}
+}
 @media print{
  header,nav,.noprint,footer{display:none!important}
  body{background:white}
@@ -55,192 +189,256 @@ footer{text-align:center;color:#89928d;font-size:12px;padding:20px}
 <body>
 
 <header>
-<h2>Al Hamim Smart</h2>
-<p>Sistem Administrasi TPQ Al Hamim</p>
+ <h2>Al Hamim Smart</h2>
+ <p>Sistem Administrasi TPQ Al Hamim · Versi 0.4</p>
 </header>
 
 <nav class="noprint">
-<button class="active" onclick="showPage('dashboard',this)">Dashboard</button>
-<button onclick="showPage('santri',this)">Data Santri</button>
-<button onclick="showPage('spp',this)">Pembayaran SPP</button>
-<button onclick="showPage('riwayat',this)">Riwayat SPP</button>
-<button onclick="showPage('absensi',this)">Absensi</button>
-<button onclick="showPage('tajwid',this)">Tajwid</button>
+ <button class="active" onclick="showPage('dashboard',this)">Dashboard</button>
+ <button onclick="showPage('santri',this)">Data Santri</button>
+ <button onclick="showPage('spp',this)">Pembayaran SPP</button>
+ <button onclick="showPage('riwayat',this)">Riwayat SPP</button>
+ <button onclick="showPage('absensi',this)">Absensi</button>
+ <button onclick="showPage('tajwid',this)">Tajwid</button>
+ <button onclick="showPage('pengaturanWali',this)">Pengaturan Wali</button>
+ <button onclick="showPage('portalWali',this)">Pratinjau Wali</button>
 </nav>
 
 <main>
-
+ <!-- DASHBOARD ADMIN -->
 <section id="dashboard" class="active">
-<div class="card">
-<h3>Dashboard</h3>
-<p>Selamat datang di administrasi TPQ Al Hamim.</p>
-<div class="stats">
-<div class="stat">Jumlah Santri<strong id="totalSantri">0</strong></div>
-<div class="stat">Transaksi<strong id="totalTransaksi">0</strong></div>
-<div class="stat">Pemasukan<strong id="totalUang">Rp0</strong></div>
-<div class="stat">Tunggakan<strong id="totalTunggakan">—</strong></div>
-</div>
-</div>
-<div class="card">
-<h3>Informasi</h3>
-<p>SPP bulanan: <b>Rp5.000 per santri</b></p>
-<p>Jadwal TPQ: Sabtu sampai Kamis.</p>
-<p>Jumat: Libur.</p>
-<p class="small">Data versi ini masih disimpan di browser perangkat yang digunakan.</p>
-</div>
+ <div class="card">
+  <h3>Dashboard Administrasi</h3>
+  <p>Selamat datang di administrasi TPQ Al Hamim.</p>
+  <div class="stats">
+   <div class="stat">Jumlah Santri<strong id="totalSantri">0</strong></div>
+   <div class="stat">Transaksi<strong id="totalTransaksi">0</strong></div>
+   <div class="stat">Pemasukan<strong id="totalUang">Rp0</strong></div>
+   <div class="stat">Tunggakan<strong id="totalTunggakan">—</strong></div>
+  </div>
+ </div>
+ <div class="card">
+  <h3>Informasi TPQ</h3>
+  <p>SPP bulanan: <b>Rp5.000 per santri</b></p>
+  <p>Jadwal TPQ: Sabtu sampai Kamis.</p>
+  <p>Jumat: Libur.</p>
+  <p class="small">Data prototipe disimpan di browser perangkat ini.</p>
+ </div>
 </section>
 
+<!-- DATA SANTRI -->
 <section id="santri">
-<div class="card">
-<h3>Tambah Data Santri</h3>
-<label>Nama santri</label>
-<input id="nama" placeholder="Masukkan nama lengkap">
-<label>NIS</label>
-<input id="nis" placeholder="Nomor induk santri">
-<label>Kelas / kelompok</label>
-<input id="kelas" placeholder="Contoh: Iqra 2">
-<button class="action" onclick="tambahSantri()">Simpan Santri</button>
-</div>
-<div class="card">
-<h3>Daftar Santri</h3>
-<input id="cariSantri" placeholder="Cari nama atau NIS..." oninput="renderSantri()">
-<div id="daftarSantri"></div>
-</div>
+ <div class="card">
+  <h3>Tambah Data Santri</h3>
+  <label>Nama santri</label>
+  <input id="nama" placeholder="Masukkan nama lengkap">
+  <label>NIS</label>
+  <input id="nis" placeholder="Nomor induk santri">
+  <label>Kelas / kelompok</label>
+  <input id="kelas" placeholder="Contoh: Iqra 2">
+  <button class="action" onclick="tambahSantri()">Simpan Santri</button>
+ </div>
+ <div class="card">
+  <h3>Daftar Santri</h3>
+  <input id="cariSantri" placeholder="Cari nama atau NIS..." oninput="renderSantri()">
+  <div id="daftarSantri"></div>
+ </div>
 </section>
 
+<!-- PEMBAYARAN SPP -->
 <section id="spp">
-<div class="card">
-<h3>Catat Pembayaran SPP</h3>
-<label>Pilih santri</label>
-<select id="pilihSantri"></select>
-<label>Bulan pembayaran</label>
-<select id="bulan">
-<option>Januari</option><option>Februari</option><option>Maret</option>
-<option>April</option><option>Mei</option><option>Juni</option>
-<option>Juli</option><option>Agustus</option><option>September</option>
-<option>Oktober</option><option>November</option><option>Desember</option>
-</select>
-<label>Tahun</label>
-<input id="tahun" type="number" value="2026">
-<label>Nominal</label>
-<input value="Rp5.000" disabled>
-<button class="action" onclick="bayar()">Simpan Pembayaran</button>
-</div>
+ <div class="card">
+  <h3>Catat Pembayaran SPP</h3>
+  <label>Pilih santri</label>
+  <select id="pilihSantri"></select>
+  <label>Bulan pembayaran</label>
+  <select id="bulan">
+   <option>Januari</option><option>Februari</option>
+   <option>Maret</option><option>April</option>
+   <option>Mei</option><option>Juni</option>
+   <option>Juli</option><option>Agustus</option>
+   <option>September</option><option>Oktober</option>
+   <option>November</option><option>Desember</option>
+  </select>
+  <label>Tahun</label>
+  <input id="tahun" type="number" value="2026">
+  <label>Nominal</label>
+  <input value="Rp5.000" disabled>
+  <button class="action" onclick="bayar()">Simpan Pembayaran</button>
+ </div>
 </section>
 
+<!-- RIWAYAT SPP -->
 <section id="riwayat">
-<div class="card">
-<h3>Riwayat Pembayaran</h3>
-<div id="daftarRiwayat"></div>
-</div>
+ <div class="card">
+  <h3>Riwayat Pembayaran</h3>
+  <div id="daftarRiwayat"></div>
+ </div>
 </section>
 
+<!-- ABSENSI -->
 <section id="absensi">
-<div class="card">
-<h3>Absensi Harian Santri</h3>
-<p class="small">Pilih tanggal kegiatan, kemudian tentukan status setiap santri.</p>
-<label>Tanggal absensi</label>
-<input type="date" id="tanggalAbsensi" onchange="renderFormAbsensi()">
-<div id="informasiHari"></div>
-<div id="formAbsensi"></div>
-<button class="action noprint" id="tombolSimpanAbsensi" onclick="simpanAbsensi()">Simpan Absensi</button>
-</div>
+ <div class="card">
+  <h3>Absensi Harian Santri</h3>
+  <p class="small">Pilih tanggal kegiatan dan tentukan status setiap santri.</p>
+  <label>Tanggal absensi</label>
+  <input type="date" id="tanggalAbsensi" onchange="renderFormAbsensi()">
+  <div id="informasiHari"></div>
+  <div id="formAbsensi"></div>
+  <button class="action noprint" id="tombolSimpanAbsensi" onclick="simpanAbsensi()">Simpan Absensi</button>
+ </div>
 
-<div class="card">
-<h3>Rekap Absensi Bulanan</h3>
-<label>Pilih bulan</label>
-<input type="month" id="bulanAbsensi" onchange="renderRekapAbsensi();renderRiwayatAbsensi()">
-<div id="daftarRekap"></div>
-<button class="action noprint" onclick="cetakRekapAbsensi()">Cetak Laporan Absensi</button>
-</div>
+ <div class="card">
+  <h3>Rekap Absensi Bulanan</h3>
+  <label>Pilih bulan</label>
+  <input type="month" id="bulanAbsensi" onchange="renderRekapAbsensi();renderRiwayatAbsensi()">
+  <div id="daftarRekap"></div>
+  <button class="action noprint" onclick="cetakRekapAbsensi()">Cetak Laporan Absensi</button>
+ </div>
 
-<div class="card">
-<h3>Riwayat Absensi</h3>
-<div id="riwayatAbsensi"></div>
-</div>
+ <div class="card">
+  <h3>Riwayat Absensi</h3>
+  <div id="riwayatAbsensi"></div>
+ </div>
 </section>
 
+<!-- TAJWID -->
 <section id="tajwid">
+ <div class="card">
+  <h3>Pengaturan Materi Tajwid</h3>
+  <p class="small">Tambahkan daftar materi untuk kegiatan setoran.</p>
+  <label>Nama materi baru</label>
+  <input id="materiBaru" placeholder="Contoh: Nun Sukun dan Tanwin">
+  <button class="action" onclick="tambahMateri()">Tambah Materi</button>
+  <div id="daftarMateri"></div>
+ </div>
 
-<div class="card">
-<h3>Pengaturan Materi Tajwid</h3>
-<p class="small">Tambahkan daftar materi yang digunakan dalam kegiatan setoran.</p>
-<label>Nama materi baru</label>
-<input id="materiBaru" placeholder="Contoh: Nun Sukun dan Tanwin">
-<button class="action" onclick="tambahMateri()">Tambah Materi</button>
-<div id="daftarMateri"></div>
-</div>
+ <div class="card">
+  <h3>Catat Setoran Tajwid</h3>
+  <label>Pilih santri</label>
+  <select id="tajwidSantri"></select>
+  <label>Tanggal setoran</label>
+  <input type="date" id="tanggalSetoran">
+  <label>Materi tajwid</label>
+  <select id="pilihMateri"></select>
+  <label>Penilaian</label>
+  <select id="nilaiTajwid">
+   <option value="Lancar">Lancar</option>
+   <option value="Cukup">Cukup</option>
+   <option value="Mengulang">Mengulang</option>
+  </select>
+  <label>Catatan guru (opsional)</label>
+  <textarea id="catatanTajwid" placeholder="Catatan perkembangan santri..."></textarea>
+  <button class="action" onclick="simpanSetoran()">Simpan Setoran</button>
+  <div class="info">Satu santri dapat memiliki beberapa setoran materi pada tanggal yang sama.</div>
+ </div>
 
-<div class="card">
-<h3>Catat Setoran Tajwid</h3>
-<label>Pilih santri</label>
-<select id="tajwidSantri"></select>
+ <div class="card">
+  <h3>Rekap Tajwid Bulanan</h3>
+  <label>Pilih bulan</label>
+  <input type="month" id="bulanTajwid" onchange="renderRekapTajwid()">
+  <div id="rekapTajwid"></div>
+  <button class="action noprint" onclick="cetakRekapTajwid()">Cetak Rekap Tajwid</button>
+ </div>
 
-<label>Tanggal setoran</label>
-<input type="date" id="tanggalSetoran">
-
-<label>Materi tajwid</label>
-<select id="pilihMateri"></select>
-
-<label>Penilaian</label>
-<select id="nilaiTajwid">
-<option value="Lancar">Lancar</option>
-<option value="Cukup">Cukup</option>
-<option value="Mengulang">Mengulang</option>
-</select>
-
-<label>Catatan guru (opsional)</label>
-<textarea id="catatanTajwid" placeholder="Tuliskan catatan perkembangan santri..."></textarea>
-
-<button class="action" onclick="simpanSetoran()">Simpan Setoran</button>
-<div class="info">Satu santri boleh memiliki beberapa setoran materi pada tanggal yang sama. Setiap setoran disimpan sebagai catatan tersendiri.</div>
-</div>
-
-<div class="card">
-<h3>Rekap Tajwid Bulanan</h3>
-<label>Pilih bulan</label>
-<input type="month" id="bulanTajwid" onchange="renderRekapTajwid()">
-<div id="rekapTajwid"></div>
-<button class="action noprint" onclick="cetakRekapTajwid()">Cetak Rekap Tajwid</button>
-</div>
-
-<div class="card">
-<h3>Riwayat Setoran Tajwid</h3>
-<label>Filter nama santri</label>
-<select id="filterSantriTajwid" onchange="renderRiwayatTajwid()">
-<option value="">Semua santri</option>
-</select>
-<div id="riwayatTajwid"></div>
-</div>
-
+ <div class="card">
+  <h3>Riwayat Setoran Tajwid</h3>
+  <label>Filter nama santri</label>
+  <select id="filterSantriTajwid" onchange="renderRiwayatTajwid()">
+   <option value="">Semua santri</option>
+  </select>
+  <div id="riwayatTajwid"></div>
+ </div>
 </section>
 
-</main>
+<!-- PENGATURAN WALI -->
+<section id="pengaturanWali">
+ <div class="card">
+  <h3>Pengaturan Akun Wali Santri</h3>
+  <div class="warning">
+   Ini masih prototipe penghubung data wali dan santri.
+   Belum menjadi sistem login yang aman.
+  </div>
 
-<footer>Al Hamim Smart · Versi 0.3</footer>
+  <label>Nama wali santri</label>
+  <input id="namaWali" placeholder="Masukkan nama wali">
 
-<script>
- 
+  <label>Nomor HP wali (opsional)</label>
+  <input id="hpWali" placeholder="Nomor WhatsApp wali">
+
+  <label>Pilih anak yang terhubung</label>
+  <div id="pilihanAnakWali"></div>
+
+  <button class="action" onclick="simpanWali()">Simpan Akun Wali</button>
+ </div>
+
+ <div class="card">
+  <h3>Daftar Wali Santri</h3>
+  <div id="daftarWali"></div>
+ </div>
+</section>
+
+<!-- PORTAL WALI SANTRI -->
+<section id="portalWali">
+ <div class="portal-head">
+  <h2>Assalamu'alaikum 👋</h2>
+  <p>Selamat datang di Portal Wali Santri Al Hamim.</p>
+ </div>
+
+ <div class="card">
+  <h3>Pratinjau Akun Wali</h3>
+  <p class="small">Pilih akun wali untuk melihat data anak yang terhubung.</p>
+  <label>Pilih wali santri</label>
+  <select id="pilihAkunWali" onchange="renderPortalWali()">
+   <option value="">-- Pilih akun wali --</option>
+  </select>
+  <label>Pilih anak</label>
+  <select id="pilihAnakPortal" onchange="renderPortalWali()">
+   <option value="">-- Pilih anak --</option>
+  </select>
+ </div>
+
+ <div id="isiPortalWali">
+  <div class="card empty">
+   Pilih akun wali dan anak untuk melihat informasi.
+  </div>
+ </div>
+ </section>
+ <script>
+
+// ===============================
+// PENYIMPANAN DATA
+// ===============================
+
 const KEY_S="alHamimStudents";
 const KEY_P="alHamimPayments";
 const KEY_A="alHamimAttendance";
 const KEY_T="alHamimTajwid";
 const KEY_M="alHamimMateri";
+const KEY_W="alHamimWali";
 
 let santri=JSON.parse(localStorage.getItem(KEY_S)||"[]");
 let pembayaran=JSON.parse(localStorage.getItem(KEY_P)||"[]");
 let absensi=JSON.parse(localStorage.getItem(KEY_A)||"[]");
 let setoran=JSON.parse(localStorage.getItem(KEY_T)||"[]");
 let materi=JSON.parse(localStorage.getItem(KEY_M)||"[]");
+let wali=JSON.parse(localStorage.getItem(KEY_W)||"[]");
 
-// Bersihkan catatan milik santri yang sudah dihapus.
+// Membersihkan catatan santri yang sudah dihapus
 pembayaran=pembayaran.filter(p=>santri.some(s=>s.nis===p.nis));
 absensi=absensi.filter(a=>santri.some(s=>s.nis===a.nis));
 setoran=setoran.filter(t=>santri.some(s=>s.nis===t.nis));
 
+wali=wali.map(w=>({
+ ...w,
+ anak:(w.anak||[]).filter(nis=>santri.some(s=>s.nis===nis))
+}));
+
 function tanggalHariIni(){
  let d=new Date();
- return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+ return d.getFullYear()+"-"+
+ String(d.getMonth()+1).padStart(2,"0")+"-"+
+ String(d.getDate()).padStart(2,"0");
 }
 
 function bulanSekarang(){
@@ -253,6 +451,7 @@ function simpan(){
  localStorage.setItem(KEY_A,JSON.stringify(absensi));
  localStorage.setItem(KEY_T,JSON.stringify(setoran));
  localStorage.setItem(KEY_M,JSON.stringify(materi));
+ localStorage.setItem(KEY_W,JSON.stringify(wali));
 }
 
 function rupiah(n){
@@ -261,7 +460,11 @@ function rupiah(n){
 
 function aman(v){
  return String(v??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
  }[c]));
 }
 
@@ -282,8 +485,10 @@ function hariTanggal(t){
 function showPage(id,btn){
  document.querySelectorAll("main section").forEach(x=>x.classList.remove("active"));
  document.getElementById(id).classList.add("active");
+
  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
  btn.classList.add("active");
+
  render();
 }
 
@@ -318,42 +523,52 @@ function tambahSantri(){
 }
 
 function hapusSantri(nis){
- if(!confirm("Hapus santri beserta seluruh riwayat pembayaran, absensi, dan setoran tajwidnya?"))return;
+ if(!confirm("Hapus santri beserta seluruh riwayat pembayaran, absensi, setoran tajwid, dan hubungan wali?"))return;
 
  santri=santri.filter(x=>x.nis!==nis);
  pembayaran=pembayaran.filter(x=>x.nis!==nis);
  absensi=absensi.filter(x=>x.nis!==nis);
  setoran=setoran.filter(x=>x.nis!==nis);
 
+ wali=wali.map(w=>({
+  ...w,
+  anak:(w.anak||[]).filter(n=>n!==nis)
+ }));
+
  simpan();
  render();
- alert("Data santri dan seluruh riwayatnya berhasil dihapus.");
+ alert("Data santri dan riwayatnya berhasil dihapus.");
 }
 
 function renderSantri(){
  let q=(document.getElementById("cariSantri")?.value||"").toLowerCase();
  let hasil=santri.filter(x=>(x.nama+" "+x.nis).toLowerCase().includes(q));
 
- document.getElementById("daftarSantri").innerHTML=hasil.length?hasil.map(x=>`
+ document.getElementById("daftarSantri").innerHTML=hasil.length?
+ hasil.map(x=>`
  <div class="item">
  <b>${aman(x.nama)}</b><br>
  <span class="small">NIS: ${aman(x.nis)} · ${aman(x.kelas||"-")}</span><br>
  <button class="action danger noprint" onclick="hapusSantri('${amanJS(x.nis)}')">Hapus</button>
- </div>`).join(""):'<div class="empty">Belum ada data santri.</div>';
+ </div>`).join("")
+ :'<div class="empty">Belum ada data santri.</div>';
 }
 
 function renderPilihan(){
  let isi=santri.length?santri.map(x=>`
  <option value="${aman(x.nis)}">${aman(x.nama)} (${aman(x.nis)})</option>
- `).join(""):'<option value="">Belum ada santri</option>';
+ `).join("")
+ :'<option value="">Belum ada santri</option>';
 
  document.getElementById("pilihSantri").innerHTML=isi;
  document.getElementById("tajwidSantri").innerHTML=isi;
 
  let filter=document.getElementById("filterSantriTajwid");
  let lama=filter.value;
+
  filter.innerHTML='<option value="">Semua santri</option>'+
  santri.map(x=>`<option value="${aman(x.nis)}">${aman(x.nama)}</option>`).join("");
+
  filter.value=santri.some(x=>x.nis===lama)?lama:"";
 }
 
@@ -400,21 +615,25 @@ function bayar(){
 function renderRiwayat(){
  let el=document.getElementById("daftarRiwayat");
 
- el.innerHTML=pembayaran.length?`<div class="tablewrap"><table>
+ el.innerHTML=pembayaran.length?`
+ <div class="tablewrap"><table>
  <tr><th>Santri</th><th>Bulan</th><th>Jumlah</th><th>Kuitansi</th><th class="noprint">Aksi</th></tr>
- ${[...pembayaran].reverse().map(x=>`<tr>
+ ${[...pembayaran].reverse().map(x=>`
+ <tr>
  <td>${aman(x.nama)}<br><span class="small">${aman(x.nis)}</span></td>
  <td>${aman(x.bulan)} ${aman(x.tahun)}</td>
  <td>${rupiah(x.nominal)}</td>
  <td><button class="action light noprint" onclick="cetak('${amanJS(x.nomor)}')">Cetak</button></td>
  <td class="noprint"><button class="action danger" onclick="hapusPembayaran('${amanJS(x.nomor)}')">Hapus</button></td>
  </tr>`).join("")}
- </table></div>`:'<div class="empty">Belum ada pembayaran.</div>';
+ </table></div>`
+ :'<div class="empty">Belum ada pembayaran.</div>';
 }
 
 function hapusPembayaran(nomor){
  let x=pembayaran.find(p=>p.nomor===nomor);
  if(!x)return;
+
  if(!confirm("Hapus transaksi "+x.nomor+" milik "+x.nama+"?"))return;
 
  pembayaran=pembayaran.filter(p=>p.nomor!==nomor);
@@ -435,7 +654,8 @@ function cetak(nomor){
 
  w.document.write(`<html><head><title>Kuitansi ${aman(x.nomor)}</title></head>
  <body style="font-family:Arial;padding:25px">
- <h2>TPQ AL HAMIM</h2><h3>KUITANSI PEMBAYARAN SPP</h3>
+ <h2>TPQ AL HAMIM</h2>
+ <h3>KUITANSI PEMBAYARAN SPP</h3>
  <p>Nomor: ${aman(x.nomor)}</p><hr>
  <p>Telah diterima dari: <b>${aman(x.nama)}</b></p>
  <p>NIS: ${aman(x.nis)}</p>
@@ -446,460 +666,837 @@ function cetak(nomor){
  <script>window.onload=()=>window.print()<\/script></body></html>`);
  w.document.close();
 }
-
-// ===============================
+  // ===============================
 // ABSENSI SANTRI
 // ===============================
 
 function renderFormAbsensi(){
- let tanggal=document.getElementById("tanggalAbsensi").value;
- let info=document.getElementById("informasiHari");
- let form=document.getElementById("formAbsensi");
- let tombol=document.getElementById("tombolSimpanAbsensi");
+  const tanggal=document.getElementById("tanggalAbsensi");
+  if(tanggal && !tanggal.value){
+    tanggal.value=tanggalHariIni();
+  }
 
- if(!tanggal){
-  info.innerHTML='<div class="warning">Pilih tanggal absensi terlebih dahulu.</div>';
-  form.innerHTML="";
-  tombol.disabled=true;
-  return;
- }
-
- if(hariTanggal(tanggal)===5){
-  info.innerHTML='<div class="warning"><b>Hari Jumat adalah hari libur TPQ.</b><br>Absensi tidak tersedia.</div>';
-  form.innerHTML="";
-  tombol.disabled=true;
-  return;
- }
-
- tombol.disabled=false;
- info.innerHTML='<div class="info">Tanggal kegiatan: <b>'+formatTanggal(tanggal)+'</b><br>Status yang belum dipilih tidak otomatis menjadi Alfa.</div>';
-
- if(!santri.length){
-  form.innerHTML='<div class="empty">Belum ada data santri.</div>';
-  tombol.disabled=true;
-  return;
- }
-
- form.innerHTML=santri.map(s=>{
-  let data=absensi.find(a=>a.nis===s.nis&&a.tanggal===tanggal);
-  let status=data?data.status:"";
-  let catatan=data?data.catatan||"":"";
-
-  return `<div class="absen-row">
-   <label>${aman(s.nama)}</label><br>
-   <span class="small">NIS: ${aman(s.nis)}</span>
-   <select data-absen-nis="${aman(s.nis)}" class="pilihan-status">
-    <option value="">-- Pilih status --</option>
-    <option value="Hadir" ${status==="Hadir"?"selected":""}>Hadir</option>
-    <option value="Izin" ${status==="Izin"?"selected":""}>Izin</option>
-    <option value="Sakit" ${status==="Sakit"?"selected":""}>Sakit</option>
-    <option value="Alfa" ${status==="Alfa"?"selected":""}>Alfa</option>
-   </select>
-   <input data-catatan-nis="${aman(s.nis)}" placeholder="Catatan (opsional)" value="${aman(catatan)}">
-  </div>`;
- }).join("");
+  const pilih=document.getElementById("pilihSantriAbsensi");
+  if(pilih){
+    pilih.innerHTML=santri.length
+      ?santri.map(s=>`
+        <option value="${aman(s.nis)}">
+          ${aman(s.nama)} - ${aman(s.nis)}
+        </option>
+      `).join("")
+      :'<option value="">Belum ada santri</option>';
+  }
 }
 
 function simpanAbsensi(){
- let tanggal=document.getElementById("tanggalAbsensi").value;
+  const nis=document.getElementById("pilihSantriAbsensi").value;
+  const tanggal=document.getElementById("tanggalAbsensi").value;
+  const status=document.getElementById("statusAbsensi").value;
+  const catatan=document.getElementById("catatanAbsensi").value.trim();
 
- if(!tanggal){
-  alert("Pilih tanggal absensi.");
-  return;
- }
- if(hariTanggal(tanggal)===5){
-  alert("Hari Jumat adalah hari libur.");
-  return;
- }
-
- let pilihan=document.querySelectorAll(".pilihan-status");
- let jumlah=0;
-
- pilihan.forEach(el=>{
-  let nis=el.dataset.absenNis;
-  let status=el.value;
-  if(!status)return;
-
-  let s=santri.find(x=>x.nis===nis);
-  if(!s)return;
-
-  let catatanEl=Array.from(document.querySelectorAll("[data-catatan-nis]"))
-   .find(x=>x.dataset.catatanNis===nis);
-  let catatan=catatanEl?catatanEl.value.trim():"";
-
-  let lama=absensi.find(a=>a.nis===nis&&a.tanggal===tanggal);
-
-  if(lama){
-   lama.nama=s.nama;
-   lama.status=status;
-   lama.catatan=catatan;
-  }else{
-   absensi.push({nis,nama:s.nama,tanggal,status,catatan});
+  if(!nis || !tanggal || !status){
+    alert("Lengkapi data absensi terlebih dahulu.");
+    return;
   }
-  jumlah++;
- });
 
- if(jumlah===0){
-  alert("Belum ada status kehadiran yang dipilih.");
-  return;
- }
+  const hari=new Date(tanggal+"T00:00:00").getDay();
 
- simpan();
- renderRekapAbsensi();
- renderRiwayatAbsensi();
- alert("Absensi berhasil disimpan untuk "+jumlah+" santri.");
+  if(hari===5){
+    alert("Hari Jumat tidak ada kegiatan TPQ.");
+    return;
+  }
+
+  const sudahAda=absensi.some(a=>
+    a.nis===nis && a.tanggal===tanggal
+  );
+
+  if(sudahAda){
+    alert("Absensi santri pada tanggal tersebut sudah tercatat.");
+    return;
+  }
+
+  absensi.push({
+    nis,
+    tanggal,
+    status,
+    catatan
+  });
+
+  simpan();
+  render();
+
+  document.getElementById("catatanAbsensi").value="";
+  alert("Absensi berhasil disimpan.");
 }
 
 function renderRekapAbsensi(){
- let bulan=document.getElementById("bulanAbsensi").value;
- let el=document.getElementById("daftarRekap");
- let data=absensi.filter(a=>a.tanggal.startsWith(bulan));
+  const bulan=document.getElementById("bulanRekapAbsensi");
+  const wadah=document.getElementById("isiRekapAbsensi");
 
- if(!santri.length){
-  el.innerHTML='<div class="empty">Belum ada data santri.</div>';
-  return;
- }
+  if(!wadah) return;
 
- let hitung=(nis,status)=>data.filter(a=>a.nis===nis&&a.status===status).length;
+  const periode=bulan && bulan.value
+    ?bulan.value
+    :bulanSekarang();
 
- el.innerHTML=`<div class="tablewrap"><table>
- <tr><th>Santri</th><th>Hadir</th><th>Izin</th><th>Sakit</th><th>Alfa</th></tr>
- ${santri.map(s=>`<tr>
- <td>${aman(s.nama)}<br><span class="small">${aman(s.nis)}</span></td>
- <td>${hitung(s.nis,"Hadir")}</td>
- <td>${hitung(s.nis,"Izin")}</td>
- <td>${hitung(s.nis,"Sakit")}</td>
- <td>${hitung(s.nis,"Alfa")}</td>
- </tr>`).join("")}
- </table></div>
- <p class="small">Jumlah catatan absensi bulan ini: ${data.length}</p>`;
+  const data=absensi.filter(a=>
+    a.tanggal.startsWith(periode)
+  );
+
+  const jumlah={
+    Hadir:0,
+    Izin:0,
+    Sakit:0,
+    Alfa:0
+  };
+
+  data.forEach(a=>{
+    if(jumlah[a.status]!==undefined){
+      jumlah[a.status]++;
+    }
+  });
+
+  wadah.innerHTML=`
+    <div class="grid">
+      <div class="card">
+        <h3>${jumlah.Hadir}</h3>
+        <p>Hadir</p>
+      </div>
+      <div class="card">
+        <h3>${jumlah.Izin}</h3>
+        <p>Izin</p>
+      </div>
+      <div class="card">
+        <h3>${jumlah.Sakit}</h3>
+        <p>Sakit</p>
+      </div>
+      <div class="card">
+        <h3>${jumlah.Alfa}</h3>
+        <p>Alfa</p>
+      </div>
+    </div>
+    <p>Total catatan: ${data.length}</p>
+  `;
 }
 
 function renderRiwayatAbsensi(){
- let bulan=document.getElementById("bulanAbsensi").value;
- let el=document.getElementById("riwayatAbsensi");
- let data=absensi.filter(a=>a.tanggal.startsWith(bulan))
- .sort((a,b)=>b.tanggal.localeCompare(a.tanggal));
+  const wadah=document.getElementById("riwayatAbsensi");
+  if(!wadah) return;
 
- el.innerHTML=data.length?`<div class="tablewrap"><table>
- <tr><th>Tanggal</th><th>Santri</th><th>Status</th><th>Catatan</th></tr>
- ${data.map(a=>`<tr>
- <td>${formatTanggal(a.tanggal)}</td>
- <td>${aman(a.nama)}<br><span class="small">${aman(a.nis)}</span></td>
- <td>${aman(a.status)}</td><td>${aman(a.catatan||"-")}</td>
- </tr>`).join("")}
- </table></div>`:'<div class="empty">Belum ada riwayat absensi pada bulan ini.</div>';
+  const data=[...absensi].sort((a,b)=>
+    b.tanggal.localeCompare(a.tanggal)
+  );
+
+  if(!data.length){
+    wadah.innerHTML="<p>Belum ada riwayat absensi.</p>";
+    return;
+  }
+
+  wadah.innerHTML=data.map(a=>{
+    const siswa=santri.find(s=>s.nis===a.nis);
+    return `
+      <div class="card">
+        <strong>${aman(siswa?siswa.nama:"Santri tidak ditemukan")}</strong>
+        <p>Tanggal: ${formatTanggal(a.tanggal)}</p>
+        <p>Status: ${aman(a.status)}</p>
+        <p>Catatan: ${aman(a.catatan||"-")}</p>
+      </div>
+    `;
+  }).join("");
 }
 
 function cetakRekapAbsensi(){
- let bulan=document.getElementById("bulanAbsensi").value;
- let data=absensi.filter(a=>a.tanggal.startsWith(bulan));
- let hitung=(nis,status)=>data.filter(a=>a.nis===nis&&a.status===status).length;
+  const bulan=document.getElementById("bulanRekapAbsensi");
+  const periode=bulan && bulan.value
+    ?bulan.value
+    :bulanSekarang();
 
- let isi=santri.map(s=>`<tr>
- <td>${aman(s.nama)}</td><td>${aman(s.nis)}</td>
- <td>${hitung(s.nis,"Hadir")}</td><td>${hitung(s.nis,"Izin")}</td>
- <td>${hitung(s.nis,"Sakit")}</td><td>${hitung(s.nis,"Alfa")}</td>
- </tr>`).join("");
+  const data=absensi.filter(a=>
+    a.tanggal.startsWith(periode)
+  );
 
- let w=window.open("","_blank");
- if(!w){alert("Izinkan pop-up untuk mencetak laporan.");return;}
+  const isi=data.map(a=>{
+    const siswa=santri.find(s=>s.nis===a.nis);
+    return `
+      <tr>
+        <td>${aman(siswa?siswa.nama:"-")}</td>
+        <td>${aman(a.tanggal)}</td>
+        <td>${aman(a.status)}</td>
+        <td>${aman(a.catatan||"-")}</td>
+      </tr>
+    `;
+  }).join("");
 
- w.document.write(`<html><head><title>Rekap Absensi TPQ Al Hamim</title>
- <style>body{font-family:Arial;padding:25px}h2,h3{text-align:center}
- table{width:100%;border-collapse:collapse;margin-top:20px}
- th,td{border:1px solid #777;padding:8px;font-size:13px}</style>
- </head><body><h2>TPQ AL HAMIM</h2><h3>REKAP ABSENSI SANTRI</h3>
- <p>Bulan: ${aman(bulan)}</p>
- <table><tr><th>Nama Santri</th><th>NIS</th><th>Hadir</th><th>Izin</th><th>Sakit</th><th>Alfa</th></tr>
- ${isi}</table><br><br><p>Petugas,</p><br><br><p>____________________</p>
- <script>window.onload=()=>window.print()<\/script></body></html>`);
- w.document.close();
-}
+  const jendela=window.open("","_blank");
 
-// ===============================
+  if(!jendela){
+    alert("Izinkan pop-up untuk mencetak rekap.");
+    return;
+  }
+
+  jendela.document.write(`
+    <html>
+    <head>
+      <title>Rekap Absensi TPQ Al Hamim</title>
+      <style>
+        body{font-family:Arial;padding:20px}
+        table{width:100%;border-collapse:collapse}
+        th,td{border:1px solid #333;padding:8px;text-align:left}
+        h2{text-align:center}
+      </style>
+    </head>
+    <body>
+      <h2>TPQ AL HAMIM</h2>
+      <h3>Rekap Absensi ${aman(periode)}</h3>
+      <table>
+        <tr>
+          <th>Nama Santri</th>
+          <th>Tanggal</th>
+          <th>Status</th>
+          <th>Catatan</th>
+        </tr>
+        ${isi}
+      </table>
+      <script>window.onload=function(){window.print()}<\/script>
+    </body>
+    </html>
+  `);
+
+  jendela.document.close();
+  }
+  // ===============================
 // PENGATURAN MATERI TAJWID
 // ===============================
 
 function tambahMateri(){
- let nama=document.getElementById("materiBaru").value.trim();
+  let nama=document.getElementById("materiBaru").value.trim();
 
- if(!nama){
-  alert("Masukkan nama materi terlebih dahulu.");
-  return;
- }
+  if(!nama){
+    alert("Masukkan nama materi terlebih dahulu.");
+    return;
+  }
 
- if(materi.some(m=>m.toLowerCase()===nama.toLowerCase())){
-  alert("Materi tersebut sudah ada.");
-  return;
- }
+  materi.push({
+    id:String(Date.now()),
+    nama:nama
+  });
 
- materi.push(nama);
- materi.sort((a,b)=>a.localeCompare(b,"id"));
- document.getElementById("materiBaru").value="";
+  simpan();
+  render();
 
- simpan();
- renderMateri();
- alert("Materi berhasil ditambahkan.");
+  document.getElementById("materiBaru").value="";
+  alert("Materi berhasil ditambahkan.");
 }
 
-function editMateri(index){
- if(!materi[index])return;
+function editMateri(id){
+  const item=materi.find(m=>m.id===id);
+  if(!item) return;
 
- let baru=prompt("Ubah nama materi:",materi[index]);
- if(baru===null)return;
+  const namaBaru=prompt("Ubah nama materi:",item.nama);
 
- baru=baru.trim();
- if(!baru){
-  alert("Nama materi tidak boleh kosong.");
-  return;
- }
+  if(namaBaru===null) return;
 
- if(materi.some((m,i)=>i!==index&&m.toLowerCase()===baru.toLowerCase())){
-  alert("Nama materi tersebut sudah ada.");
-  return;
- }
+  if(!namaBaru.trim()){
+    alert("Nama materi tidak boleh kosong.");
+    return;
+  }
 
- materi[index]=baru;
- materi.sort((a,b)=>a.localeCompare(b,"id"));
- simpan();
- renderMateri();
- alert("Nama materi berhasil diperbarui.");
+  item.nama=namaBaru.trim();
+
+  simpan();
+  render();
 }
 
-function hapusMateri(index){
- if(!materi[index])return;
+function hapusMateri(id){
+  if(!confirm("Yakin ingin menghapus materi ini?")) return;
 
- let nama=materi[index];
- if(!confirm("Hapus materi "+nama+" dari daftar pilihan? Riwayat setoran lama tetap disimpan."))return;
+  materi=materi.filter(m=>m.id!==id);
 
- materi.splice(index,1);
- simpan();
- renderMateri();
- alert("Materi berhasil dihapus dari daftar.");
+  simpan();
+  render();
 }
 
 function renderMateri(){
- let el=document.getElementById("daftarMateri");
- let pilihan=document.getElementById("pilihMateri");
+  const wadah=document.getElementById("daftarMateri");
+  if(!wadah) return;
 
- pilihan.innerHTML=materi.length?
- '<option value="">-- Pilih materi --</option>'+
- materi.map(m=>`<option value="${aman(m)}">${aman(m)}</option>`).join("")
- :'<option value="">Belum ada materi</option>';
+  if(!materi.length){
+    wadah.innerHTML="<p>Belum ada materi Tajwid.</p>";
+    return;
+  }
 
- el.innerHTML=materi.length?materi.map((m,i)=>`
- <div class="item">
- <b>${aman(m)}</b><br>
- <button class="action light" onclick="editMateri(${i})">Edit</button>
- <button class="action danger" onclick="hapusMateri(${i})">Hapus</button>
- </div>`).join(""):'<div class="empty">Belum ada materi. Tambahkan materi di atas.</div>';
-}
-
-// ===============================
-// SETORAN TAJWID
+  wadah.innerHTML=materi.map(m=>`
+    <div class="card">
+      <strong>${aman(m.nama)}</strong>
+      <div class="actions">
+        <button onclick="editMateri('${amanJS(m.id)}')">
+          Edit
+        </button>
+        <button class="danger" onclick="hapusMateri('${amanJS(m.id)}')">
+          Hapus
+        </button>
+      </div>
+    </div>
+  `).join("");
+  }
+  // ===============================
+// SETORAN TAJWID SANTRI
 // ===============================
 
 function simpanSetoran(){
- let nis=document.getElementById("tajwidSantri").value;
- let tanggal=document.getElementById("tanggalSetoran").value;
- let namaMateri=document.getElementById("pilihMateri").value;
- let nilai=document.getElementById("nilaiTajwid").value;
- let catatan=document.getElementById("catatanTajwid").value.trim();
+  const nis=document.getElementById("pilihSantriTajwid").value;
+  const tanggal=document.getElementById("tanggalTajwid").value;
+  const namaMateri=document.getElementById("pilihMateri").value;
+  const nilai=document.getElementById("nilaiTajwid").value;
+  const catatan=document.getElementById("catatanTajwid").value.trim();
 
- if(!nis){
-  alert("Pilih santri terlebih dahulu.");
-  return;
- }
- if(!tanggal){
-  alert("Pilih tanggal setoran.");
-  return;
- }
- if(!namaMateri){
-  alert("Pilih materi tajwid.");
-  return;
- }
+  if(!nis || !tanggal || !namaMateri || !nilai){
+    alert("Lengkapi data setoran terlebih dahulu.");
+    return;
+  }
 
- let s=santri.find(x=>x.nis===nis);
- if(!s)return;
+  setoran.push({
+    id:String(Date.now()),
+    nis,
+    tanggal,
+    materi:namaMateri,
+    nilai,
+    catatan
+  });
 
- setoran.push({
-  id:String(Date.now())+"-"+String(Math.floor(Math.random()*100000)),
-  nis,
-  nama:s.nama,
-  tanggal,
-  materi:namaMateri,
-  nilai,
-  catatan
- });
+  simpan();
+  render();
 
- simpan();
-
- document.getElementById("catatanTajwid").value="";
- renderRekapTajwid();
- renderRiwayatTajwid();
-
- alert("Setoran tajwid berhasil disimpan.");
+  document.getElementById("catatanTajwid").value="";
+  alert("Setoran Tajwid berhasil disimpan.");
 }
 
 function editSetoran(id){
- let x=setoran.find(t=>t.id===id);
- if(!x)return;
+  const item=setoran.find(t=>t.id===id);
+  if(!item) return;
 
- let nilaiBaru=prompt("Ubah penilaian:\nKetik: Lancar, Cukup, atau Mengulang",x.nilai);
- if(nilaiBaru===null)return;
+  const nilaiBaru=prompt(
+    "Masukkan nilai baru: Lancar, Cukup, atau Mengulang",
+    item.nilai
+  );
 
- nilaiBaru=nilaiBaru.trim();
- if(!["Lancar","Cukup","Mengulang"].includes(nilaiBaru)){
-  alert("Penilaian harus Lancar, Cukup, atau Mengulang.");
-  return;
- }
+  if(nilaiBaru===null) return;
 
- let catatanBaru=prompt("Ubah catatan guru:",x.catatan||"");
- if(catatanBaru===null)return;
+  const nilai=nilaiBaru.trim().toLowerCase();
+  const pilihan={
+    lancar:"Lancar",
+    cukup:"Cukup",
+    mengulang:"Mengulang"
+  };
 
- x.nilai=nilaiBaru;
- x.catatan=catatanBaru.trim();
+  if(!pilihan[nilai]){
+    alert("Nilai harus Lancar, Cukup, atau Mengulang.");
+    return;
+  }
 
- simpan();
- renderRekapTajwid();
- renderRiwayatTajwid();
- alert("Catatan setoran berhasil diperbarui.");
+  item.nilai=pilihan[nilai];
+
+  simpan();
+  render();
 }
 
 function hapusSetoran(id){
- let x=setoran.find(t=>t.id===id);
- if(!x)return;
+  if(!confirm("Yakin ingin menghapus setoran ini?")) return;
 
- if(!confirm("Hapus setoran "+x.materi+" milik "+x.nama+"?"))return;
+  setoran=setoran.filter(t=>t.id!==id);
 
- setoran=setoran.filter(t=>t.id!==id);
- simpan();
- renderRekapTajwid();
- renderRiwayatTajwid();
- alert("Setoran berhasil dihapus.");
+  simpan();
+  render();
 }
 
 function renderRekapTajwid(){
- let bulan=document.getElementById("bulanTajwid").value;
- let el=document.getElementById("rekapTajwid");
- let data=setoran.filter(t=>t.tanggal.startsWith(bulan));
+  const bulan=document.getElementById("bulanRekapTajwid");
+  const wadah=document.getElementById("isiRekapTajwid");
 
- if(!santri.length){
-  el.innerHTML='<div class="empty">Belum ada data santri.</div>';
-  return;
- }
+  if(!wadah) return;
 
- let hitung=(nis,nilai)=>data.filter(t=>t.nis===nis&&t.nilai===nilai).length;
+  const periode=bulan && bulan.value
+    ?bulan.value
+    :bulanSekarang();
 
- el.innerHTML=`<div class="tablewrap"><table>
- <tr><th>Santri</th><th>Jumlah Setoran</th><th>Lancar</th><th>Cukup</th><th>Mengulang</th></tr>
- ${santri.map(s=>{
-  let milik=data.filter(t=>t.nis===s.nis);
-  return `<tr>
-  <td>${aman(s.nama)}<br><span class="small">${aman(s.nis)}</span></td>
-  <td>${milik.length}</td>
-  <td>${hitung(s.nis,"Lancar")}</td>
-  <td>${hitung(s.nis,"Cukup")}</td>
-  <td>${hitung(s.nis,"Mengulang")}</td>
-  </tr>`;
- }).join("")}
- </table></div>
- <p class="small">Jumlah setoran pada bulan ini: ${data.length}</p>`;
+  const data=setoran.filter(t=>
+    t.tanggal.startsWith(periode)
+  );
+
+  const jumlah={
+    Lancar:0,
+    Cukup:0,
+    Mengulang:0
+  };
+
+  data.forEach(t=>{
+    if(jumlah[t.nilai]!==undefined){
+      jumlah[t.nilai]++;
+    }
+  });
+
+  wadah.innerHTML=`
+    <div class="grid">
+      <div class="card">
+        <h3>${jumlah.Lancar}</h3>
+        <p>Lancar</p>
+      </div>
+      <div class="card">
+        <h3>${jumlah.Cukup}</h3>
+        <p>Cukup</p>
+      </div>
+      <div class="card">
+        <h3>${jumlah.Mengulang}</h3>
+        <p>Mengulang</p>
+      </div>
+    </div>
+    <p>Total setoran: ${data.length}</p>
+  `;
 }
 
 function renderRiwayatTajwid(){
- let filter=document.getElementById("filterSantriTajwid").value;
- let el=document.getElementById("riwayatTajwid");
+  const wadah=document.getElementById("riwayatTajwid");
+  if(!wadah) return;
 
- let data=setoran.filter(t=>!filter||t.nis===filter)
- .sort((a,b)=>b.tanggal.localeCompare(a.tanggal));
+  const data=[...setoran].sort((a,b)=>
+    b.tanggal.localeCompare(a.tanggal)
+  );
 
- el.innerHTML=data.length?`<div class="tablewrap"><table>
- <tr><th>Tanggal</th><th>Santri</th><th>Materi</th><th>Nilai</th><th>Catatan</th><th class="noprint">Aksi</th></tr>
- ${data.map(t=>`<tr>
- <td>${formatTanggal(t.tanggal)}</td>
- <td>${aman(t.nama)}<br><span class="small">${aman(t.nis)}</span></td>
- <td>${aman(t.materi)}</td>
- <td>${aman(t.nilai)}</td>
- <td>${aman(t.catatan||"-")}</td>
- <td class="noprint">
- <button class="action light" onclick="editSetoran('${amanJS(t.id)}')">Edit</button>
- <button class="action danger" onclick="hapusSetoran('${amanJS(t.id)}')">Hapus</button>
- </td>
- </tr>`).join("")}
- </table></div>`:'<div class="empty">Belum ada riwayat setoran tajwid.</div>';
+  if(!data.length){
+    wadah.innerHTML="<p>Belum ada riwayat setoran Tajwid.</p>";
+    return;
+  }
+
+  wadah.innerHTML=data.map(t=>{
+    const siswa=santri.find(s=>s.nis===t.nis);
+
+    return `
+      <div class="card">
+        <strong>${aman(siswa?siswa.nama:"Santri tidak ditemukan")}</strong>
+        <p>Tanggal: ${formatTanggal(t.tanggal)}</p>
+        <p>Materi: ${aman(t.materi)}</p>
+        <p>Nilai: ${aman(t.nilai)}</p>
+        <p>Catatan: ${aman(t.catatan||"-")}</p>
+
+        <div class="actions">
+          <button onclick="editSetoran('${amanJS(t.id)}')">
+            Edit Nilai
+          </button>
+          <button class="danger" onclick="hapusSetoran('${amanJS(t.id)}')">
+            Hapus
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
 }
 
 function cetakRekapTajwid(){
- let bulan=document.getElementById("bulanTajwid").value;
- let data=setoran.filter(t=>t.tanggal.startsWith(bulan));
+  const bulan=document.getElementById("bulanRekapTajwid");
+  const periode=bulan && bulan.value
+    ?bulan.value
+    :bulanSekarang();
 
- let isi=santri.map(s=>{
-  let milik=data.filter(t=>t.nis===s.nis);
-  let hitung=nilai=>milik.filter(t=>t.nilai===nilai).length;
+  const data=setoran.filter(t=>
+    t.tanggal.startsWith(periode)
+  );
 
-  return `<tr>
-  <td>${aman(s.nama)}</td><td>${aman(s.nis)}</td>
-  <td>${milik.length}</td><td>${hitung("Lancar")}</td>
-  <td>${hitung("Cukup")}</td><td>${hitung("Mengulang")}</td>
-  </tr>`;
- }).join("");
+  const isi=data.map(t=>{
+    const siswa=santri.find(s=>s.nis===t.nis);
 
- let w=window.open("","_blank");
- if(!w){
-  alert("Izinkan pop-up untuk mencetak laporan.");
-  return;
- }
+    return `
+      <tr>
+        <td>${aman(siswa?siswa.nama:"-")}</td>
+        <td>${aman(t.tanggal)}</td>
+        <td>${aman(t.materi)}</td>
+        <td>${aman(t.nilai)}</td>
+        <td>${aman(t.catatan||"-")}</td>
+      </tr>
+    `;
+  }).join("");
 
- w.document.write(`<html><head><title>Rekap Tajwid TPQ Al Hamim</title>
- <style>body{font-family:Arial;padding:25px}
- h2,h3{text-align:center}
- table{width:100%;border-collapse:collapse;margin-top:20px}
- th,td{border:1px solid #777;padding:8px;font-size:13px}
- </style></head><body>
- <h2>TPQ AL HAMIM</h2><h3>REKAP SETORAN TAJWID</h3>
- <p>Bulan: ${aman(bulan)}</p>
- <table><tr><th>Nama Santri</th><th>NIS</th><th>Jumlah</th><th>Lancar</th><th>Cukup</th><th>Mengulang</th></tr>
- ${isi}</table><br><br><p>Petugas,</p><br><br><p>____________________</p>
- <script>window.onload=()=>window.print()<\/script></body></html>`);
+  const jendela=window.open("","_blank");
 
- w.document.close();
+  if(!jendela){
+    alert("Izinkan pop-up untuk mencetak rekap.");
+    return;
+  }
+
+  jendela.document.write(`
+    <html>
+    <head>
+      <title>Rekap Tajwid TPQ Al Hamim</title>
+      <style>
+        body{font-family:Arial;padding:20px}
+        table{width:100%;border-collapse:collapse}
+        th,td{border:1px solid #333;padding:8px;text-align:left}
+        h2{text-align:center}
+      </style>
+    </head>
+    <body>
+      <h2>TPQ AL HAMIM</h2>
+      <h3>Rekap Setoran Tajwid ${aman(periode)}</h3>
+      <table>
+        <tr>
+          <th>Nama Santri</th>
+          <th>Tanggal</th>
+          <th>Materi</th>
+          <th>Nilai</th>
+          <th>Catatan</th>
+        </tr>
+        ${isi}
+      </table>
+      <script>window.onload=function(){window.print()}<\/script>
+    </body>
+    </html>
+  `);
+
+  jendela.document.close();
+  }
+ 
+// ===============================
+// PENGATURAN AKUN WALI SANTRI
+// ===============================
+
+function renderPilihanAnakWali(){
+  const wadah=document.getElementById("pilihanAnakWali");
+  if(!wadah) return;
+
+  if(!santri.length){
+    wadah.innerHTML="<p>Belum ada data santri.</p>";
+    return;
+  }
+
+  wadah.innerHTML=santri.map(s=>`
+    <label style="display:flex;align-items:center;gap:8px;margin:10px 0">
+      <input
+        type="checkbox"
+        name="anakWali"
+        value="${aman(s.nis)}"
+        style="width:auto"
+      >
+      <span>${aman(s.nama)} (${aman(s.nis)})</span>
+    </label>
+  `).join("");
+}
+
+function simpanWali(){
+  const nama=document.getElementById("namaWali").value.trim();
+  const hp=document.getElementById("hpWali").value.trim();
+
+  const pilihan=document.querySelectorAll(
+    'input[name="anakWali"]:checked'
+  );
+
+  const anak=Array.from(pilihan).map(p=>p.value);
+
+  if(!nama){
+    alert("Masukkan nama wali santri.");
+    return;
+  }
+
+  if(!anak.length){
+    alert("Pilih minimal satu santri.");
+    return;
+  }
+
+  wali.push({
+    id:String(Date.now()),
+    nama:nama,
+    hp:hp,
+    anak:anak
+  });
+
+  simpan();
+  render();
+
+  document.getElementById("namaWali").value="";
+  document.getElementById("hpWali").value="";
+
+  alert("Akun Wali Santri berhasil dibuat.");
+}
+
+function hapusWali(id){
+  if(!confirm("Yakin ingin menghapus akun wali ini?")) return;
+
+  wali=wali.filter(w=>w.id!==id);
+
+  simpan();
+  render();
+}
+
+function renderDaftarWali(){
+  const wadah=document.getElementById("daftarWali");
+  if(!wadah) return;
+
+  if(!wali.length){
+    wadah.innerHTML="<p>Belum ada akun Wali Santri.</p>";
+    return;
+  }
+
+  wadah.innerHTML=wali.map(w=>{
+    const namaAnak=(w.anak||[]).map(nis=>{
+      const s=santri.find(x=>x.nis===nis);
+      return s?s.nama:"Santri tidak ditemukan";
+    });
+
+    return `
+      <div class="card">
+        <strong>${aman(w.nama)}</strong>
+        <p>Nomor HP: ${aman(w.hp||"-")}</p>
+        <p>Anak: ${namaAnak.map(aman).join(", ")}</p>
+        <button class="danger"
+          onclick="hapusWali('${amanJS(w.id)}')">
+          Hapus Akun
+        </button>
+      </div>
+    `;
+  }).join("");
 }
 
 // ===============================
-// TAMPILAN DAN PEMUATAN AWAL
+// PILIH AKUN DAN ANAK DI PORTAL
+// ===============================
+
+function renderPilihanWaliPortal(){
+  const pilih=document.getElementById("pilihAkunWali");
+  const anak=document.getElementById("pilihAnakPortal");
+
+  if(!pilih || !anak) return;
+
+  const akunLama=pilih.value;
+
+  pilih.innerHTML=`
+    <option value="">Pilih akun wali</option>
+    ${wali.map(w=>`
+      <option value="${aman(w.id)}">${aman(w.nama)}</option>
+    `).join("")}
+  `;
+
+  if(wali.some(w=>w.id===akunLama)){
+    pilih.value=akunLama;
+  }
+
+  const akun=wali.find(w=>w.id===pilih.value);
+
+  if(!akun){
+    anak.innerHTML='<option value="">Pilih akun wali dahulu</option>';
+    return;
+  }
+
+  const anakLama=anak.value;
+
+  anak.innerHTML=(akun.anak||[]).map(nis=>{
+    const s=santri.find(x=>x.nis===nis);
+
+    return s?`
+      <option value="${aman(s.nis)}">${aman(s.nama)}</option>
+    `:"";
+  }).join("");
+
+  if((akun.anak||[]).includes(anakLama)){
+    anak.value=anakLama;
+  }
+}
+
+// ===============================
+// TAMPILAN PORTAL WALI SANTRI
+// ===============================
+
+function renderPortalWali(){
+  const wadah=document.getElementById("isiPortalWali");
+  if(!wadah) return;
+
+  const pilihWali=document.getElementById("pilihAkunWali");
+  const pilihAnak=document.getElementById("pilihAnakPortal");
+
+  if(!pilihWali || !pilihAnak) return;
+
+  const akunLama=wali.find(w=>w.id===pilihWali.value);
+
+  if(!akunLama){
+    wadah.innerHTML=`
+      <div class="card">
+        <h3>Selamat Datang di Portal Wali</h3>
+        <p>Silakan pilih akun Wali Santri untuk melihat informasi anak.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const siswa=santri.find(s=>
+    s.nis===pilihAnak.value &&
+    akunLama.anak.includes(s.nis)
+  );
+
+  if(!siswa){
+    wadah.innerHTML="<div class='card'>Pilih santri terlebih dahulu.</div>";
+    return;
+  }
+
+  const dataAbsensi=absensi.filter(a=>a.nis===siswa.nis);
+  const dataBayar=pembayaran.filter(p=>p.nis===siswa.nis);
+  const dataTajwid=setoran.filter(t=>t.nis===siswa.nis);
+
+  const jumlahHadir=dataAbsensi.filter(a=>a.status==="Hadir").length;
+  const jumlahIzin=dataAbsensi.filter(a=>a.status==="Izin").length;
+  const jumlahSakit=dataAbsensi.filter(a=>a.status==="Sakit").length;
+  const jumlahAlfa=dataAbsensi.filter(a=>a.status==="Alfa").length;
+
+  const riwayatAbsensi=[...dataAbsensi]
+    .sort((a,b)=>b.tanggal.localeCompare(a.tanggal))
+    .slice(0,10);
+
+  const riwayatBayar=[...dataBayar]
+    .sort((a,b)=>(b.tanggal||"").localeCompare(a.tanggal||""))
+    .slice(0,10);
+
+  const riwayatTajwid=[...dataTajwid]
+    .sort((a,b)=>b.tanggal.localeCompare(a.tanggal))
+    .slice(0,10);
+
+  wadah.innerHTML=`
+    <div class="card">
+      <h3>Profil Santri</h3>
+      <h2>${aman(siswa.nama)}</h2>
+      <p>Nomor Induk: ${aman(siswa.nis)}</p>
+      <p>Kelas: ${aman(siswa.kelas||"-")}</p>
+    </div>
+
+    <h3>Ringkasan Kehadiran</h3>
+    <div class="grid">
+      <div class="card">
+        <h3>${jumlahHadir}</h3>
+        <p>Hadir</p>
+      </div>
+      <div class="card">
+        <h3>${jumlahIzin}</h3>
+        <p>Izin</p>
+      </div>
+      <div class="card">
+        <h3>${jumlahSakit}</h3>
+        <p>Sakit</p>
+      </div>
+      <div class="card">
+        <h3>${jumlahAlfa}</h3>
+        <p>Alfa</p>
+      </div>
+    </div>
+
+    <h3>Riwayat Absensi</h3>
+    <div class="card">
+      ${riwayatAbsensi.length?riwayatAbsensi.map(a=>`
+        <p>
+          ${formatTanggal(a.tanggal)}
+          — <strong>${aman(a.status)}</strong>
+          ${a.catatan?"("+aman(a.catatan)+")":""}
+        </p>
+      `).join(""):"<p>Belum ada catatan absensi.</p>"}
+    </div>
+
+    <h3>Riwayat Pembayaran SPP</h3>
+    <div class="card">
+      <p>Status berdasarkan transaksi pembayaran yang tercatat.</p>
+      ${riwayatBayar.length?riwayatBayar.map(p=>`
+        <p>
+          ${aman(p.bulan||p.tanggal||"-")}
+          — Rp${Number(p.jumlah||p.nominal||5000).toLocaleString("id-ID")}
+        </p>
+      `).join(""):"<p>Belum ada pembayaran yang tercatat.</p>"}
+    </div>
+
+    <h3>Perkembangan Tajwid</h3>
+    <div class="card">
+      ${riwayatTajwid.length?riwayatTajwid.map(t=>`
+        <p>
+          ${formatTanggal(t.tanggal)}
+          — ${aman(t.materi)}
+          — <strong>${aman(t.nilai)}</strong>
+        </p>
+      `).join(""):"<p>Belum ada catatan setoran Tajwid.</p>"}
+    </div>
+
+    <h3>Pengumuman TPQ</h3>
+    <div class="announcement">
+      <strong>Informasi TPQ Al Hamim</strong>
+      <p>Mohon wali santri memperhatikan jadwal kegiatan dan memastikan santri hadir sesuai jadwal TPQ.</p>
+    </div>
+
+    <p style="font-size:12px;color:#777">
+      Portal ini merupakan pratinjau. Informasi ditampilkan sesuai data
+      yang dicatat oleh pengelola TPQ.
+    </p>
+  `;
+}
+
+// ===============================
+// MEMPERBARUI PILIHAN DATA
+// ===============================
+
+function renderPilihanTambahan(){
+  const pilihSantriTajwid=document.getElementById("pilihSantriTajwid");
+  const pilihMateri=document.getElementById("pilihMateri");
+
+  if(pilihSantriTajwid){
+    pilihSantriTajwid.innerHTML=santri.map(s=>`
+      <option value="${aman(s.nis)}">${aman(s.nama)}</option>
+    `).join("");
+  }
+
+  if(pilihMateri){
+    pilihMateri.innerHTML=materi.map(m=>`
+      <option value="${aman(m.nama)}">${aman(m.nama)}</option>
+    `).join("");
+  }
+}
+
+// ===============================
+// FUNGSI RENDER UTAMA
 // ===============================
 
 function render(){
- document.getElementById("totalSantri").textContent=santri.length;
- document.getElementById("totalTransaksi").textContent=pembayaran.length;
- document.getElementById("totalUang").textContent=
- rupiah(pembayaran.reduce((a,x)=>a+x.nominal,0));
- document.getElementById("totalTunggakan").textContent="—";
-
- renderSantri();
- renderPilihan();
- renderRiwayat();
- renderMateri();
-
- if(document.getElementById("tanggalAbsensi").value){
+  renderSantri();
+  renderPilihan();
   renderFormAbsensi();
- }
+  renderPilihanTambahan();
+  renderMateri();
+  renderRekapAbsensi();
+  renderRiwayatAbsensi();
+  renderRekapTajwid();
+  renderRiwayatTajwid();
 
- renderRekapAbsensi();
- renderRiwayatAbsensi();
- renderRekapTajwid();
- renderRiwayatTajwid();
+  renderPilihanAnakWali();
+  renderDaftarWali();
+  renderPilihanWaliPortal();
+  renderPortalWali();
+
+  const total=document.getElementById("totalSantri");
+  if(total) total.textContent=santri.length;
 }
 
-document.getElementById("tanggalAbsensi").value=tanggalHariIni();
-document.getElementById("bulanAbsensi").value=bulanSekarang();
-document.getElementById("tanggalSetoran").value=tanggalHariIni();
-document.getElementById("bulanTajwid").value=bulanSekarang();
+// ===============================
+// MENJALANKAN APLIKASI
+// ===============================
+
+const tanggalAbsensiAwal=document.getElementById("tanggalAbsensi");
+if(tanggalAbsensiAwal){
+  tanggalAbsensiAwal.value=tanggalHariIni();
+}
+
+const tanggalTajwidAwal=document.getElementById("tanggalTajwid");
+if(tanggalTajwidAwal){
+  tanggalTajwidAwal.value=tanggalHariIni();
+}
 
 simpan();
 render();
+
 </script>
+</main>
+
+<footer>
+  Al Hamim Smart · Versi 0.4
+</footer>
+
 </body>
 </html>
